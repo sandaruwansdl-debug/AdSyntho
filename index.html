@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Syntho - Launch Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 24px; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .btn-primary { background: #3b82f6; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; text-decoration: none; display: inline-block; }
+        .btn-primary:hover { background: #2563eb; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <span class="text-3xl font-bold text-blue-600">A</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                Ad Syntho Dashboard
+            </h1>
+            <p class="text-xl text-blue-100 max-w-2xl mx-auto">
+                AI-powered campaign management system ready to launch
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <!-- Landing Page -->
+            <div class="card text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-blue-600 text-2xl">🏠</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Landing Page</h3>
+                <p class="text-gray-600 text-sm mb-4">Professional business landing page with features and pricing</p>
+                <a href="landing-page.html" class="btn-primary w-full">Launch Landing Page</a>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="card text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-600 text-2xl">📊</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Dashboard</h3>
+                <p class="text-gray-600 text-sm mb-4">Main dashboard with KPIs, charts, and AI insights</p>
+                <a href="simple-dashboard.html" class="btn-primary w-full">Launch Dashboard</a>
+            </div>
+
+            <!-- Connect Accounts -->
+            <div class="card text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-purple-600 text-2xl">🔗</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Connect Accounts</h3>
+                <p class="text-gray-600 text-sm mb-4">Interactive account connection interface</p>
+                <a href="connect-accounts.html" class="btn-primary w-full">Launch Connection</a>
+            </div>
+
+            <!-- Demo with Accounts -->
+            <div class="card text-center">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-orange-600 text-2xl">🚀</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Live Demo</h3>
+                <p class="text-gray-600 text-sm mb-4">Dashboard with connected accounts and live data</p>
+                <a href="demo-with-accounts.html" class="btn-primary w-full">Launch Live Demo</a>
+            </div>
+        </div>
+
+        <!-- Quick Start Guide -->
+        <div class="max-w-4xl mx-auto mt-16">
+            <div class="card">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Quick Start Guide</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">1</div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Start with Landing Page</h3>
+                        <p class="text-gray-600 text-sm">See how your business will be presented to customers</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">2</div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Try Account Connection</h3>
+                        <p class="text-gray-600 text-sm">Experience how users connect their ad accounts</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">3</div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Explore Live Demo</h3>
+                        <p class="text-gray-600 text-sm">See the full dashboard with connected accounts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Launch Options -->
+        <div class="max-w-4xl mx-auto mt-8">
+            <div class="card">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Launch Options</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-2">🌐 Web Deployment</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Upload HTML files to any web hosting</li>
+                            <li>• Works with GitHub Pages, Netlify, Vercel</li>
+                            <li>• No server setup required</li>
+                            <li>• Instant global access</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-2">💻 Local Development</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Run locally on your computer</li>
+                            <li>• Full Next.js application</li>
+                            <li>• Real API integrations</li>
+                            <li>• Complete development environment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

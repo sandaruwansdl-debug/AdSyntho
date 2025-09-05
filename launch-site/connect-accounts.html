@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Ad Accounts - Ad Syntho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; }
+        .btn-primary { background: #3b82f6; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-secondary { background: #f1f5f9; color: #475569; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-secondary:hover { background: #e2e8f0; }
+        .status-connected { background: #dcfce7; color: #166534; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-disconnected { background: #f1f5f9; color: #475569; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                    <span class="ml-2 text-xl font-bold text-gray-900">Ad Syntho</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="btn-secondary" onclick="window.location.href='simple-dashboard.html'">← Back to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">
+                Connect Your Advertising Accounts
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Connect your ad accounts to start getting unified insights, AI-powered recommendations, 
+                and comprehensive campaign performance analysis.
+            </p>
+        </div>
+
+        <!-- Connection Status Overview -->
+        <div class="card mb-8">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Connection Status</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600" id="connectedCount">0</div>
+                    <div class="text-sm text-gray-600">Connected</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-yellow-600" id="pendingCount">0</div>
+                    <div class="text-sm text-gray-600">Pending</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-gray-600" id="disconnectedCount">6</div>
+                    <div class="text-sm text-gray-600">Not Connected</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600">6</div>
+                    <div class="text-sm text-gray-600">Total Platforms</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platform Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="platformGrid">
+            <!-- Platforms will be populated by JavaScript -->
+        </div>
+
+        <!-- Demo Connection Modal -->
+        <div id="connectionModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+            <div class="bg-white rounded-xl p-6 max-w-md w-full">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Connect <span id="platformName"></span></h3>
+                <p class="text-gray-600 mb-6">This is a demo connection. In the full version, this would redirect to the platform's OAuth flow.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Account Name</label>
+                        <input type="text" id="accountName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="My Business Account">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Account ID (Optional)</label>
+                        <input type="text" id="accountId" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="123456789">
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3 mt-6">
+                    <button onclick="connectAccount()" class="btn-primary flex-1">Connect Account</button>
+                    <button onclick="closeModal()" class="btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+                Why Connect Multiple Accounts?
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600 text-2xl">📊</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Unified Reporting</h3>
+                    <p class="text-gray-600 text-sm">
+                        View all your campaigns in one dashboard with consistent metrics and KPIs.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600 text-2xl">🔄</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Cross-Platform Insights</h3>
+                    <p class="text-gray-600 text-sm">
+                        Compare performance across platforms and identify optimization opportunities.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600 text-2xl">🤖</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">AI Optimization</h3>
+                    <p class="text-gray-600 text-sm">
+                        Get intelligent recommendations based on data from all connected accounts.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const platforms = [
+            {
+                id: 'facebook',
+                name: 'Facebook Ads',
+                description: 'Connect your Facebook Ads account to sync campaigns, ads, and performance data.',
+                icon: '📘',
+                color: '#1877F2',
+                status: 'disconnected'
+            },
+            {
+                id: 'google',
+                name: 'Google Ads',
+                description: 'Sync your Google Ads campaigns, keywords, and conversion data.',
+                icon: '🔍',
+                color: '#4285F4',
+                status: 'disconnected'
+            },
+            {
+                id: 'tiktok',
+                name: 'TikTok Ads',
+                description: 'Connect TikTok Ads to monitor video performance and audience insights.',
+                icon: '🎵',
+                color: '#000000',
+                status: 'disconnected'
+            },
+            {
+                id: 'linkedin',
+                name: 'LinkedIn Ads',
+                description: 'Sync LinkedIn campaign data for B2B marketing insights.',
+                icon: '💼',
+                color: '#0A66C2',
+                status: 'disconnected'
+            },
+            {
+                id: 'twitter',
+                name: 'Twitter Ads',
+                description: 'Connect Twitter Ads for social media campaign monitoring.',
+                icon: '🐦',
+                color: '#1DA1F2',
+                status: 'disconnected'
+            },
+            {
+                id: 'snapchat',
+                name: 'Snapchat Ads',
+                description: 'Sync Snapchat campaign data for mobile-first audience insights.',
+                icon: '👻',
+                color: '#FFFC00',
+                status: 'disconnected'
+            }
+        ];
+
+        let currentPlatform = null;
+
+        function renderPlatforms() {
+            const grid = document.getElementById('platformGrid');
+            grid.innerHTML = '';
+
+            platforms.forEach(platform => {
+                const platformCard = document.createElement('div');
+                platformCard.className = 'card hover:shadow-md transition-shadow duration-200';
+                
+                const statusClass = platform.status === 'connected' ? 'status-connected' : 
+                                  platform.status === 'pending' ? 'status-pending' : 'status-disconnected';
+                
+                const statusText = platform.status === 'connected' ? 'Connected' : 
+                                 platform.status === 'pending' ? 'Pending' : 'Not Connected';
+
+                platformCard.innerHTML = `
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl" style="background-color: ${platform.color}20">
+                                ${platform.icon}
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">${platform.name}</h3>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusClass}">
+                                    ${statusText}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-600 text-sm mb-4">${platform.description}</p>
+                    
+                    ${platform.status === 'connected' ? `
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-500">Last Sync:</span>
+                                <span class="text-gray-900">2 hours ago</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-500">Campaigns:</span>
+                                <span class="text-gray-900">12 active</span>
+                            </div>
+                            <button class="w-full btn-secondary text-sm" onclick="manageConnection('${platform.id}')">
+                                Manage Connection
+                            </button>
+                        </div>
+                    ` : platform.status === 'pending' ? `
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-500">Status:</span>
+                                <span class="text-yellow-600">Awaiting approval</span>
+                            </div>
+                            <button class="w-full btn-secondary text-sm" onclick="checkStatus('${platform.id}')">
+                                Check Status
+                            </button>
+                        </div>
+                    ` : `
+                        <button onclick="openConnectionModal('${platform.id}')" class="w-full btn-primary text-sm">
+                            Connect Account
+                        </button>
+                    `}
+                `;
+                
+                grid.appendChild(platformCard);
+            });
+            
+            updateStatusCounts();
+        }
+
+        function updateStatusCounts() {
+            const connected = platforms.filter(p => p.status === 'connected').length;
+            const pending = platforms.filter(p => p.status === 'pending').length;
+            const disconnected = platforms.filter(p => p.status === 'disconnected').length;
+            
+            document.getElementById('connectedCount').textContent = connected;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('disconnectedCount').textContent = disconnected;
+        }
+
+        function openConnectionModal(platformId) {
+            currentPlatform = platforms.find(p => p.id === platformId);
+            document.getElementById('platformName').textContent = currentPlatform.name;
+            document.getElementById('connectionModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('connectionModal').classList.add('hidden');
+            currentPlatform = null;
+        }
+
+        function connectAccount() {
+            const accountName = document.getElementById('accountName').value || 'Demo Account';
+            const accountId = document.getElementById('accountId').value || '123456789';
+            
+            // Simulate connection process
+            currentPlatform.status = 'pending';
+            renderPlatforms();
+            closeModal();
+            
+            // Show success message
+            setTimeout(() => {
+                alert(`Successfully initiated connection to ${currentPlatform.name}!\n\nIn the full version, this would:\n1. Redirect to OAuth flow\n2. Request permissions\n3. Sync campaign data\n4. Start AI analysis`);
+            }, 500);
+        }
+
+        function manageConnection(platformId) {
+            const platform = platforms.find(p => p.id === platformId);
+            alert(`Managing ${platform.name} connection:\n\n• View sync status\n• Adjust sync frequency\n• Manage permissions\n• Disconnect account\n\nThis would open the account management panel in the full version.`);
+        }
+
+        function checkStatus(platformId) {
+            const platform = platforms.find(p => p.id === platformId);
+            alert(`Checking ${platform.name} status:\n\n• Connection pending approval\n• Estimated time: 5-10 minutes\n• You'll receive an email when ready\n\nIn the full version, this would check the actual OAuth status.`);
+        }
+
+        // Initialize the page
+        renderPlatforms();
+    </script>
+</body>
+</html>

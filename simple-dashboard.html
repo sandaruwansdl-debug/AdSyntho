@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Syntho Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; }
+        .btn-primary { background: #3b82f6; color: white; padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; }
+        .btn-primary:hover { background: #2563eb; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                    <span class="ml-2 text-xl font-bold text-gray-900">Ad Syntho</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="btn-primary">Connect Account</button>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Spend</p>
+                        <p class="text-2xl font-bold text-gray-900">$8,750</p>
+                        <p class="text-sm text-green-600">+12.5%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                        <span class="text-red-600 text-xl">💰</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Revenue</p>
+                        <p class="text-2xl font-bold text-gray-900">$21,875</p>
+                        <p class="text-sm text-green-600">+18.2%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <span class="text-green-600 text-xl">📈</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Average ROAS</p>
+                        <p class="text-2xl font-bold text-gray-900">2.5x</p>
+                        <p class="text-sm text-green-600">+8.3%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span class="text-blue-600 text-xl">🎯</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Active Campaigns</p>
+                        <p class="text-2xl font-bold text-gray-900">24</p>
+                        <p class="text-sm text-gray-500">3 platforms</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                        <span class="text-purple-600 text-xl">🚀</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Performance Chart -->
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Performance Trend</h3>
+                <canvas id="performanceChart" width="400" height="200"></canvas>
+            </div>
+
+            <!-- Platform Distribution -->
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Platform Distribution</h3>
+                <canvas id="platformChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="card mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                    <span class="text-yellow-500 text-xl mr-2">💡</span>
+                    AI Insights & Recommendations
+                </h3>
+                <span class="text-sm text-gray-500">Updated 2 hours ago</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-4 rounded-lg border-l-4 border-red-500 bg-red-50">
+                    <div class="flex items-start justify-between mb-2">
+                        <h4 class="font-medium text-gray-900">Campaign Performance Alert</h4>
+                        <span class="text-xs px-2 py-1 rounded-full bg-red-100 text-red-800">high</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Your Facebook campaign CTR has dropped 15% this week. Consider refreshing ad creatives.</p>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Review Campaign →</button>
+                </div>
+
+                <div class="p-4 rounded-lg border-l-4 border-yellow-500 bg-yellow-50">
+                    <div class="flex items-start justify-between mb-2">
+                        <h4 class="font-medium text-gray-900">Budget Optimization</h4>
+                        <span class="text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-800">medium</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Google Ads campaign is performing 25% above average. Consider increasing budget allocation.</p>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Adjust Budget →</button>
+                </div>
+
+                <div class="p-4 rounded-lg border-l-4 border-blue-500 bg-blue-50">
+                    <div class="flex items-start justify-between mb-2">
+                        <h4 class="font-medium text-gray-900">Audience Discovery</h4>
+                        <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">low</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">New high-performing audience segment identified. Test with 10% of budget.</p>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Create Test →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaigns Table -->
+        <div class="card">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Campaign Performance</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Campaign</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Platform</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Spend</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Revenue</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ROAS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Summer Sale 2024</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Facebook</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">active</span></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$2,500</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$6,250</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2.5x</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Brand Awareness Q2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Google Ads</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">active</span></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$1,800</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$4,450</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2.47x</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Product Launch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TikTok</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">active</span></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$1,200</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$3,040</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2.53x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Performance Chart
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(performanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Spend',
+                    data: [800, 750, 900, 850, 950, 700, 650],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Revenue',
+                    data: [2000, 1850, 2200, 2100, 2350, 1750, 1600],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        // Platform Chart
+        const platformCtx = document.getElementById('platformChart').getContext('2d');
+        new Chart(platformCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Facebook', 'Google Ads', 'TikTok'],
+                datasets: [{
+                    data: [45, 35, 20],
+                    backgroundColor: ['#1877F2', '#4285F4', '#000000'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

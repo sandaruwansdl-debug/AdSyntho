@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Syntho Dashboard - Advanced Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .filter-panel {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .active-filter {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+        }
+        
+        .drill-down {
+            transition: all 0.2s ease;
+        }
+        
+        .drill-down:hover {
+            background: #f1f5f9;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50" x-data="enhancedDashboard()">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                        A
+                    </div>
+                    <span class="ml-3 text-xl font-bold text-gray-900">Ad Syntho</span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-sm text-gray-600">Live Sync</span>
+                    </div>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Advanced Campaign Analytics</h1>
+            <p class="text-gray-600">Multi-level analysis with AI-powered insights</p>
+        </div>
+
+        <!-- Advanced Filter Panel -->
+        <div class="filter-panel p-6 rounded-2xl mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Filter & Customize View</h3>
+                <div class="flex items-center space-x-2">
+                    <button @click="resetFilters()" class="px-3 py-1 text-sm text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-undo mr-1"></i>Reset
+                    </button>
+                    <button @click="saveView()" class="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-save mr-1"></i>Save View
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Date Range -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+                    <select x-model="filters.dateRange" @change="updateData()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                        <option value="90d">Last 90 days</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                
+                <!-- Platform Filter -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Platform</label>
+                    <select x-model="filters.platform" @change="updateData()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all">All Platforms</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="google">Google Ads</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="linkedin">LinkedIn</option>
+                    </select>
+                </div>
+                
+                <!-- Campaign Type -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Campaign Type</label>
+                    <select x-model="filters.campaignType" @change="updateData()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all">All Types</option>
+                        <option value="brand">Brand Awareness</option>
+                        <option value="conversion">Conversion</option>
+                        <option value="traffic">Traffic</option>
+                        <option value="engagement">Engagement</option>
+                        <option value="video">Video Views</option>
+                    </select>
+                </div>
+                
+                <!-- Analysis Level -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Analysis Level</label>
+                    <select x-model="filters.analysisLevel" @change="updateData()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="campaign">Campaign Level</option>
+                        <option value="adset">Ad Set Level</option>
+                        <option value="ad">Ad Creative Level</option>
+                        <option value="keyword">Keyword Level</option>
+                        <option value="audience">Audience Level</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Additional Filters -->
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                    <div class="flex space-x-2">
+                        <button @click="toggleStatus('active')" 
+                                :class="filters.status.includes('active') ? 'active-filter' : 'bg-gray-200 text-gray-700'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium">
+                            Active
+                        </button>
+                        <button @click="toggleStatus('paused')" 
+                                :class="filters.status.includes('paused') ? 'active-filter' : 'bg-gray-200 text-gray-700'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium">
+                            Paused
+                        </button>
+                        <button @click="toggleStatus('completed')" 
+                                :class="filters.status.includes('completed') ? 'active-filter' : 'bg-gray-200 text-gray-700'"
+                                class="px-3 py-1 rounded-lg text-sm font-medium">
+                            Completed
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Performance</label>
+                    <select x-model="filters.performance" @change="updateData()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all">All Performance</option>
+                        <option value="high">High Performers (ROAS > 3x)</option>
+                        <option value="medium">Medium Performers (ROAS 2-3x)</option>
+                        <option value="low">Low Performers (ROAS < 2x)</option>
+                        <option value="declining">Declining Performance</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Budget Range</label>
+                    <select x-model="filters.budgetRange" @change="updateData()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all">All Budgets</option>
+                        <option value="low">$0 - $1,000</option>
+                        <option value="medium">$1,000 - $10,000</option>
+                        <option value="high">$10,000+</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="metric-card p-6 rounded-2xl card-hover">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Spend</p>
+                        <p class="text-3xl font-bold text-gray-900" x-text="formatCurrency(kpis.totalSpend)">$0</p>
+                        <p class="text-sm text-green-600 flex items-center mt-1">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span x-text="kpis.spendChange + '%'">0%</span> vs previous period
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-dollar-sign text-red-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card p-6 rounded-2xl card-hover">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Revenue</p>
+                        <p class="text-3xl font-bold text-gray-900" x-text="formatCurrency(kpis.totalRevenue)">$0</p>
+                        <p class="text-sm text-green-600 flex items-center mt-1">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span x-text="kpis.revenueChange + '%'">0%</span> vs previous period
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card p-6 rounded-2xl card-hover">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Average ROAS</p>
+                        <p class="text-3xl font-bold text-gray-900" x-text="kpis.averageRoas + 'x'">0x</p>
+                        <p class="text-sm text-green-600 flex items-center mt-1">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span x-text="kpis.roasChange + '%'">0%</span> vs previous period
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-bullseye text-blue-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card p-6 rounded-2xl card-hover">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Active Items</p>
+                        <p class="text-3xl font-bold text-gray-900" x-text="kpis.activeItems">0</p>
+                        <p class="text-sm text-gray-500" x-text="filters.analysisLevel + ' level'">campaign level</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-layer-group text-purple-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drill-Down Navigation -->
+        <div class="mb-6">
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+                <span>Analysis Level:</span>
+                <button @click="setAnalysisLevel('campaign')" 
+                        :class="filters.analysisLevel === 'campaign' ? 'text-blue-600 font-medium' : 'text-gray-500 hover:text-gray-700'"
+                        class="drill-down px-2 py-1 rounded">
+                    Campaigns
+                </button>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+                <button @click="setAnalysisLevel('adset')" 
+                        :class="filters.analysisLevel === 'adset' ? 'text-blue-600 font-medium' : 'text-gray-500 hover:text-gray-700'"
+                        class="drill-down px-2 py-1 rounded">
+                    Ad Sets
+                </button>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+                <button @click="setAnalysisLevel('ad')" 
+                        :class="filters.analysisLevel === 'ad' ? 'text-blue-600 font-medium' : 'text-gray-500 hover:text-gray-700'"
+                        class="drill-down px-2 py-1 rounded">
+                    Ad Creatives
+                </button>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+                <button @click="setAnalysisLevel('keyword')" 
+                        :class="filters.analysisLevel === 'keyword' ? 'text-blue-600 font-medium' : 'text-gray-500 hover:text-gray-700'"
+                        class="drill-down px-2 py-1 rounded">
+                    Keywords
+                </button>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Performance Trend -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 card-hover">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Performance Trend</h3>
+                    <div class="flex space-x-2">
+                        <button @click="setChartMetric('revenue')" 
+                                :class="chartMetric === 'revenue' ? 'bg-blue-100 text-blue-800' : 'text-gray-600 hover:bg-gray-100'"
+                                class="px-3 py-1 text-sm rounded-lg">Revenue</button>
+                        <button @click="setChartMetric('spend')" 
+                                :class="chartMetric === 'spend' ? 'bg-blue-100 text-blue-800' : 'text-gray-600 hover:bg-gray-100'"
+                                class="px-3 py-1 text-sm rounded-lg">Spend</button>
+                        <button @click="setChartMetric('roas')" 
+                                :class="chartMetric === 'roas' ? 'bg-blue-100 text-blue-800' : 'text-gray-600 hover:bg-gray-100'"
+                                class="px-3 py-1 text-sm rounded-lg">ROAS</button>
+                    </div>
+                </div>
+                <div class="h-64">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Platform/Level Distribution -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 card-hover">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900" x-text="getDistributionTitle()">Platform Distribution</h3>
+                    <div class="text-sm text-gray-500" x-text="filters.dateRange">Last 7 days</div>
+                </div>
+                <div class="h-64">
+                    <canvas id="distributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 card-hover">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-900" x-text="getTableTitle()">Campaign Performance</h3>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-search text-gray-400"></i>
+                            <input type="text" x-model="searchQuery" @input="filterTable()" placeholder="Search..." 
+                                   class="text-sm border-0 bg-transparent focus:outline-none">
+                        </div>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+                            <i class="fas fa-download mr-2"></i>Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Platform</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Spend</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ROAS</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <template x-for="item in filteredData" :key="item.id">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                            <i :class="getItemIcon(item)" class="text-blue-600 text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-medium text-gray-900" x-text="item.name"></div>
+                                            <div class="text-sm text-gray-500" x-text="item.platform"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" 
+                                          :class="getPlatformBadgeClass(item.platform)" x-text="item.platform">
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" x-text="item.type"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" x-text="formatCurrency(item.spend)"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" x-text="formatCurrency(item.revenue)"></td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" 
+                                          :class="getRoasBadgeClass(item.roas)" x-text="item.roas + 'x'">
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" 
+                                          :class="getStatusBadgeClass(item.status)" x-text="item.status">
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button @click="drillDown(item)" class="text-blue-600 hover:text-blue-900 mr-3">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                    <button class="text-gray-600 hover:text-gray-900">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function enhancedDashboard() {
+            return {
+                filters: {
+                    dateRange: '7d',
+                    platform: 'all',
+                    campaignType: 'all',
+                    analysisLevel: 'campaign',
+                    status: ['active'],
+                    performance: 'all',
+                    budgetRange: 'all'
+                },
+                chartMetric: 'revenue',
+                searchQuery: '',
+                kpis: {
+                    totalSpend: 12847,
+                    totalRevenue: 32118,
+                    averageRoas: 2.50,
+                    activeItems: 24,
+                    spendChange: 15.2,
+                    revenueChange: 22.8,
+                    roasChange: 8.3
+                },
+                data: [
+                    {
+                        id: 1,
+                        name: 'Brand Keywords',
+                        platform: 'Google',
+                        type: 'Search',
+                        spend: 2450,
+                        revenue: 7840,
+                        roas: 3.2,
+                        status: 'Active',
+                        level: 'campaign'
+                    },
+                    {
+                        id: 2,
+                        name: 'Summer Sale 2024',
+                        platform: 'Facebook',
+                        type: 'Conversion',
+                        spend: 4200,
+                        revenue: 7560,
+                        roas: 1.8,
+                        status: 'Needs Attention',
+                        level: 'campaign'
+                    },
+                    {
+                        id: 3,
+                        name: 'Product Launch',
+                        platform: 'TikTok',
+                        type: 'Video Views',
+                        spend: 1800,
+                        revenue: 2340,
+                        roas: 1.3,
+                        status: 'Active',
+                        level: 'campaign'
+                    }
+                ],
+                filteredData: [],
+                
+                init() {
+                    this.filteredData = this.data;
+                    this.initCharts();
+                },
+                
+                updateData() {
+                    // Simulate data filtering
+                    this.filteredData = this.data.filter(item => {
+                        if (this.filters.platform !== 'all' && item.platform.toLowerCase() !== this.filters.platform) return false;
+                        if (this.filters.status.length > 0 && !this.filters.status.includes(item.status.toLowerCase())) return false;
+                        return true;
+                    });
+                    
+                    // Update KPIs based on filtered data
+                    this.updateKPIs();
+                    this.updateCharts();
+                },
+                
+                updateKPIs() {
+                    const totalSpend = this.filteredData.reduce((sum, item) => sum + item.spend, 0);
+                    const totalRevenue = this.filteredData.reduce((sum, item) => sum + item.revenue, 0);
+                    const averageRoas = totalRevenue / totalSpend;
+                    
+                    this.kpis.totalSpend = totalSpend;
+                    this.kpis.totalRevenue = totalRevenue;
+                    this.kpis.averageRoas = averageRoas.toFixed(1);
+                    this.kpis.activeItems = this.filteredData.length;
+                },
+                
+                toggleStatus(status) {
+                    const index = this.filters.status.indexOf(status);
+                    if (index > -1) {
+                        this.filters.status.splice(index, 1);
+                    } else {
+                        this.filters.status.push(status);
+                    }
+                    this.updateData();
+                },
+                
+                setAnalysisLevel(level) {
+                    this.filters.analysisLevel = level;
+                    this.updateData();
+                },
+                
+                setChartMetric(metric) {
+                    this.chartMetric = metric;
+                    this.updateCharts();
+                },
+                
+                filterTable() {
+                    if (!this.searchQuery) {
+                        this.filteredData = this.data;
+                        return;
+                    }
+                    
+                    this.filteredData = this.data.filter(item => 
+                        item.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        item.platform.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    );
+                },
+                
+                drillDown(item) {
+                    // Simulate drill-down functionality
+                    alert(`Drilling down to ${this.filters.analysisLevel} level for: ${item.name}`);
+                },
+                
+                resetFilters() {
+                    this.filters = {
+                        dateRange: '7d',
+                        platform: 'all',
+                        campaignType: 'all',
+                        analysisLevel: 'campaign',
+                        status: ['active'],
+                        performance: 'all',
+                        budgetRange: 'all'
+                    };
+                    this.updateData();
+                },
+                
+                saveView() {
+                    alert('View saved successfully!');
+                },
+                
+                formatCurrency(amount) {
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        minimumFractionDigits: 0
+                    }).format(amount);
+                },
+                
+                getDistributionTitle() {
+                    const titles = {
+                        'campaign': 'Platform Distribution',
+                        'adset': 'Ad Set Distribution',
+                        'ad': 'Creative Distribution',
+                        'keyword': 'Keyword Distribution',
+                        'audience': 'Audience Distribution'
+                    };
+                    return titles[this.filters.analysisLevel] || 'Distribution';
+                },
+                
+                getTableTitle() {
+                    const titles = {
+                        'campaign': 'Campaign Performance',
+                        'adset': 'Ad Set Performance',
+                        'ad': 'Ad Creative Performance',
+                        'keyword': 'Keyword Performance',
+                        'audience': 'Audience Performance'
+                    };
+                    return titles[this.filters.analysisLevel] || 'Performance';
+                },
+                
+                getItemIcon(item) {
+                    const icons = {
+                        'campaign': 'fas fa-bullseye',
+                        'adset': 'fas fa-layer-group',
+                        'ad': 'fas fa-image',
+                        'keyword': 'fas fa-key',
+                        'audience': 'fas fa-users'
+                    };
+                    return icons[this.filters.analysisLevel] || 'fas fa-chart-line';
+                },
+                
+                getPlatformBadgeClass(platform) {
+                    const classes = {
+                        'Google': 'bg-blue-100 text-blue-800',
+                        'Facebook': 'bg-blue-100 text-blue-800',
+                        'TikTok': 'bg-pink-100 text-pink-800',
+                        'LinkedIn': 'bg-blue-100 text-blue-800'
+                    };
+                    return classes[platform] || 'bg-gray-100 text-gray-800';
+                },
+                
+                getRoasBadgeClass(roas) {
+                    if (roas >= 3) return 'bg-green-100 text-green-800';
+                    if (roas >= 2) return 'bg-yellow-100 text-yellow-800';
+                    return 'bg-red-100 text-red-800';
+                },
+                
+                getStatusBadgeClass(status) {
+                    const classes = {
+                        'Active': 'bg-green-100 text-green-800',
+                        'Paused': 'bg-yellow-100 text-yellow-800',
+                        'Needs Attention': 'bg-red-100 text-red-800',
+                        'Completed': 'bg-gray-100 text-gray-800'
+                    };
+                    return classes[status] || 'bg-gray-100 text-gray-800';
+                },
+                
+                initCharts() {
+                    // Performance Chart
+                    const ctx1 = document.getElementById('performanceChart').getContext('2d');
+                    this.performanceChart = new Chart(ctx1, {
+                        type: 'line',
+                        data: {
+                            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            datasets: [{
+                                label: 'Revenue',
+                                data: [28000, 32000, 29000, 35000, 38000, 42000, 45000],
+                                borderColor: '#0ea5e9',
+                                backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: {
+                                        color: '#f1f5f9'
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        color: '#f1f5f9'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Distribution Chart
+                    const ctx2 = document.getElementById('distributionChart').getContext('2d');
+                    this.distributionChart = new Chart(ctx2, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Google Ads', 'Facebook', 'TikTok'],
+                            datasets: [{
+                                data: [45, 35, 20],
+                                backgroundColor: ['#0ea5e9', '#3b82f6', '#ec4899'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                }
+                            }
+                        }
+                    });
+                },
+                
+                updateCharts() {
+                    // Update charts based on current filters and metrics
+                    if (this.performanceChart) {
+                        this.performanceChart.update();
+                    }
+                    if (this.distributionChart) {
+                        this.distributionChart.update();
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

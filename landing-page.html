@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Syntho - AI-Powered Campaign Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%); }
+        .btn-primary { background: #3b82f6; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-primary:hover { background: #2563eb; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                    <span class="ml-2 text-xl font-bold text-gray-900">Ad Syntho</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-blue-600 transition-colors">Pricing</a>
+                    <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+                    <button class="btn-primary">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                Unify Your
+                <span class="text-blue-600"> Paid Campaigns</span>
+                <br />
+                with AI-Powered Insights
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Connect all your ad accounts and get actionable recommendations to optimize performance, 
+                save time, and increase your return on ad spend.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 max-w-md"
+                />
+                <button class="btn-primary flex items-center">
+                    Start Free Trial
+                    <span class="ml-2">→</span>
+                </button>
+            </div>
+
+            <div class="flex items-center justify-center space-x-8 text-sm text-gray-500">
+                <div class="flex items-center">
+                    <span class="text-green-500 mr-2">✓</span>
+                    No credit card required
+                </div>
+                <div class="flex items-center">
+                    <span class="text-green-500 mr-2">✓</span>
+                    14-day free trial
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Everything you need to scale your campaigns
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    From unified reporting to AI-powered optimization, we've got you covered.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-blue-600 text-2xl">��</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Unified Dashboard</h3>
+                    <p class="text-gray-600">Connect all your ad accounts and view performance in one place</p>
+                </div>
+
+                <div class="card text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-blue-600 text-2xl">💡</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">AI-Powered Insights</h3>
+                    <p class="text-gray-600">Get actionable recommendations to optimize your campaigns</p>
+                </div>
+
+                <div class="card text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-blue-600 text-2xl">⚙️</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Smart Automation</h3>
+                    <p class="text-gray-600">Automate routine tasks and focus on strategy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                        Why marketers choose Ad Syntho
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="text-green-500 mr-3 mt-0.5">✓</span>
+                            <span class="text-gray-700">Save 10+ hours per week on campaign analysis</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-green-500 mr-3 mt-0.5">✓</span>
+                            <span class="text-gray-700">Increase ROAS by 25% with AI insights</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-green-500 mr-3 mt-0.5">✓</span>
+                            <span class="text-gray-700">Connect unlimited ad accounts</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-green-500 mr-3 mt-0.5">✓</span>
+                            <span class="text-gray-700">Real-time performance monitoring</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary mt-8">Learn More</button>
+                </div>
+                <div class="relative">
+                    <div class="card">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-blue-600 text-xl">⭐</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">AI Recommendation</h4>
+                                <p class="text-sm text-gray-500">Based on your campaign data</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">
+                            "Your Facebook campaign CTR is 15% below average. Consider testing new ad creatives 
+                            and adjusting your targeting to improve engagement."
+                        </p>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span>Generated 2 hours ago</span>
+                            <span class="text-blue-600">View Details →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-blue-600">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                Ready to transform your campaigns?
+            </h2>
+            <p class="text-xl text-blue-100 mb-8">
+                Join thousands of marketers who are already saving time and improving performance.
+            </p>
+            <button class="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
+                Start Your Free Trial
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-blue-400 rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                        <span class="ml-2 text-xl font-bold">Ad Syntho</span>
+                    </div>
+                    <p class="text-gray-400">
+                        AI-powered dashboard for unified campaign management and optimization.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Ad Syntho. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

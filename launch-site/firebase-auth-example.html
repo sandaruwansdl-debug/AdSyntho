@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Auth Example - Ad Syntho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        
+        // Your Firebase config (replace with your actual config)
+        const firebaseConfig = {
+            apiKey: "your-api-key",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "your-app-id"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        
+        // Make functions globally available
+        window.signInWithGoogle = async function() {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                const userData = {
+                    firstName: user.displayName.split(' ')[0],
+                    lastName: user.displayName.split(' ')[1] || '',
+                    email: user.email,
+                    profilePicture: user.photoURL,
+                    provider: 'google',
+                    verified: user.emailVerified,
+                    uid: user.uid
+                };
+                
+                localStorage.setItem('userData', JSON.stringify(userData));
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                alert('Successfully signed in with Google!');
+                window.location.href = 'dashboard.html';
+                
+            } catch (error) {
+                console.error('Error signing in:', error);
+                alert('Error signing in: ' + error.message);
+            }
+        };
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
+                    A
+                </div>
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">Firebase Authentication</h1>
+                <p class="text-gray-600">Real OAuth with Firebase</p>
+            </div>
+
+            <button onclick="signInWithGoogle()" 
+                class="w-full inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <i class="fab fa-google text-red-500 mr-3"></i>
+                Sign in with Google (Firebase)
+            </button>
+
+            <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <h3 class="font-semibold text-yellow-800 mb-2">Setup Required:</h3>
+                <ol class="text-sm text-yellow-700 space-y-1">
+                    <li>1. Create Firebase project</li>
+                    <li>2. Enable Google authentication</li>
+                    <li>3. Add your domain to authorized origins</li>
+                    <li>4. Replace firebaseConfig with your credentials</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

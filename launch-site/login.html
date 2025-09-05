@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Ad Syntho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+        .btn-primary { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+        .form-input { transition: all 0.3s ease; }
+        .form-input:focus { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="simple-landing.html" class="flex items-center">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                            A
+                        </div>
+                        <span class="ml-3 text-xl font-bold text-gray-900">Ad Syntho</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="signup.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">
+                        Create Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex min-h-screen">
+        <!-- Left Side - Form -->
+        <div class="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md mx-auto w-full">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome back</h1>
+                    <p class="text-gray-600">Sign in to your Ad Syntho account</p>
+                </div>
+
+                <form id="loginForm" class="space-y-6">
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" required
+                            class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="john@company.com">
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required
+                                class="form-input w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Enter your password">
+                            <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <i id="passwordIcon" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember" name="remember"
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
+                        </div>
+                        <a href="#" class="text-sm text-blue-600 hover:text-blue-500">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn"
+                        class="w-full btn-primary text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span id="btnText">Sign In</span>
+                        <i id="btnSpinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                    </button>
+                </form>
+
+                <!-- Social Login -->
+                <div class="mt-8">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-2 gap-3">
+                        <button onclick="signInWithGoogle()" class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-google text-red-500 mr-2"></i>
+                            Google
+                        </button>
+                        <button onclick="signInWithLinkedIn()" class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-linkedin text-blue-600 mr-2"></i>
+                            LinkedIn
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Signup Link -->
+                <div class="mt-8 text-center">
+                    <p class="text-sm text-gray-600">
+                        Don't have an account? 
+                        <a href="signup.html" class="text-blue-600 hover:text-blue-500 font-medium">Create one</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Benefits -->
+        <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-center bg-gradient-to-br from-blue-600 to-blue-800">
+            <div class="max-w-md text-white">
+                <h2 class="text-3xl font-bold mb-6">Your campaigns await</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-chart-line text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Real-time Analytics</h3>
+                            <p class="text-blue-100 text-sm">Monitor your campaign performance with live data and insights.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-microchip text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">AI Recommendations</h3>
+                            <p class="text-blue-100 text-sm">Get personalized suggestions to optimize your ad spend and ROI.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-bell text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Smart Alerts</h3>
+                            <p class="text-blue-100 text-sm">Stay informed about important changes in your campaign performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password visibility toggle
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.className = 'fas fa-eye';
+            }
+        }
+
+        // Form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.textContent = 'Signing In...';
+            btnSpinner.classList.remove('hidden');
+            
+            // Simulate login
+            setTimeout(() => {
+                // Check if user data exists
+                const userData = localStorage.getItem('userData');
+                if (userData) {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // Create demo user data
+                    const demoUser = {
+                        firstName: 'John',
+                        lastName: 'Doe',
+                        email: document.getElementById('email').value,
+                        company: 'Demo Company',
+                        role: 'marketing-manager',
+                        createdAt: new Date().toISOString()
+                    };
+                    localStorage.setItem('userData', JSON.stringify(demoUser));
+                    localStorage.setItem('isLoggedIn', 'true');
+                    window.location.href = 'dashboard.html';
+                }
+            }, 1500);
+        });
+
+        // Social login functions
+        function signInWithGoogle() {
+            alert('Google Sign-In would be implemented here');
+        }
+
+        function signInWithLinkedIn() {
+            alert('LinkedIn Sign-In would be implemented here');
+        }
+    </script>
+</body>
+</html>

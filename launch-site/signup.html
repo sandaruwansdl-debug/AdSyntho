@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Ad Syntho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+        .btn-primary { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+        .glass-effect { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .form-input { transition: all 0.3s ease; }
+        .form-input:focus { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="simple-landing.html" class="flex items-center">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                            A
+                        </div>
+                        <span class="ml-3 text-xl font-bold text-gray-900">Ad Syntho</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex min-h-screen">
+        <!-- Left Side - Form -->
+        <div class="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md mx-auto w-full">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Create your account</h1>
+                    <p class="text-gray-600">Start your free trial and connect your ad accounts</p>
+                </div>
+
+                <form id="signupForm" class="space-y-6">
+                    <!-- Name Fields -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required
+                                class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="John">
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required
+                                class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Doe">
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" required
+                            class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="john@company.com">
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required
+                                class="form-input w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Create a strong password">
+                            <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <i id="passwordIcon" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-500">
+                            <div class="flex items-center space-x-2">
+                                <div id="lengthCheck" class="flex items-center">
+                                    <i class="fas fa-circle text-gray-300 mr-1"></i>
+                                    <span>8+ characters</span>
+                                </div>
+                                <div id="upperCheck" class="flex items-center">
+                                    <i class="fas fa-circle text-gray-300 mr-1"></i>
+                                    <span>Uppercase</span>
+                                </div>
+                                <div id="numberCheck" class="flex items-center">
+                                    <i class="fas fa-circle text-gray-300 mr-1"></i>
+                                    <span>Number</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company -->
+                    <div>
+                        <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Company (Optional)</label>
+                        <input type="text" id="company" name="company"
+                            class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Your Company Name">
+                    </div>
+
+                    <!-- Role -->
+                    <div>
+                        <label for="role" class="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                        <select id="role" name="role" required
+                            class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select your role</option>
+                            <option value="marketing-manager">Marketing Manager</option>
+                            <option value="paid-media-specialist">Paid Media Specialist</option>
+                            <option value="growth-marketer">Growth Marketer</option>
+                            <option value="agency-owner">Agency Owner</option>
+                            <option value="freelancer">Freelancer</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="flex items-start">
+                        <input type="checkbox" id="terms" name="terms" required
+                            class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="terms" class="ml-3 text-sm text-gray-600">
+                            I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms of Service</a> 
+                            and <a href="#" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn"
+                        class="w-full btn-primary text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span id="btnText">Create Account & Start Free Trial</span>
+                        <i id="btnSpinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+                    </button>
+                </form>
+
+                <!-- Social Login -->
+                <div class="mt-8">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-2 gap-3">
+                        <button onclick="signInWithGoogle()" class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-google text-red-500 mr-2"></i>
+                            Google
+                        </button>
+                        <button onclick="signInWithLinkedIn()" class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-linkedin text-blue-600 mr-2"></i>
+                            LinkedIn
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Login Link -->
+                <div class="mt-8 text-center">
+                    <p class="text-sm text-gray-600">
+                        Already have an account? 
+                        <a href="login.html" class="text-blue-600 hover:text-blue-500 font-medium">Sign in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Benefits -->
+        <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-center bg-gradient-to-br from-blue-600 to-blue-800">
+            <div class="max-w-md text-white">
+                <h2 class="text-3xl font-bold mb-6">Why Ad Syntho?</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-microchip text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">AI-Powered Insights</h3>
+                            <p class="text-blue-100 text-sm">Get intelligent recommendations to optimize your campaigns and maximize ROI.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-chart-line text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Unified Dashboard</h3>
+                            <p class="text-blue-100 text-sm">View all your campaigns from Google, Facebook, TikTok, and more in one place.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-user-gear text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Expert Support</h3>
+                            <p class="text-blue-100 text-sm">Get monthly consultancy sessions with advertising experts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password visibility toggle
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('passwordIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.className = 'fas fa-eye';
+            }
+        }
+
+        // Password strength validation
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const lengthCheck = document.getElementById('lengthCheck');
+            const upperCheck = document.getElementById('upperCheck');
+            const numberCheck = document.getElementById('numberCheck');
+
+            // Length check
+            if (password.length >= 8) {
+                lengthCheck.innerHTML = '<i class="fas fa-check text-green-500 mr-1"></i><span>8+ characters</span>';
+            } else {
+                lengthCheck.innerHTML = '<i class="fas fa-circle text-gray-300 mr-1"></i><span>8+ characters</span>';
+            }
+
+            // Uppercase check
+            if (/[A-Z]/.test(password)) {
+                upperCheck.innerHTML = '<i class="fas fa-check text-green-500 mr-1"></i><span>Uppercase</span>';
+            } else {
+                upperCheck.innerHTML = '<i class="fas fa-circle text-gray-300 mr-1"></i><span>Uppercase</span>';
+            }
+
+            // Number check
+            if (/\d/.test(password)) {
+                numberCheck.innerHTML = '<i class="fas fa-check text-green-500 mr-1"></i><span>Number</span>';
+            } else {
+                numberCheck.innerHTML = '<i class="fas fa-circle text-gray-300 mr-1"></i><span>Number</span>';
+            }
+        }
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.textContent = 'Creating Account...';
+            btnSpinner.classList.remove('hidden');
+            
+            // Simulate account creation
+            setTimeout(() => {
+                // Store user data in localStorage
+                const userData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    company: document.getElementById('company').value,
+                    role: document.getElementById('role').value,
+                    createdAt: new Date().toISOString()
+                };
+                localStorage.setItem('userData', JSON.stringify(userData));
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Redirect to onboarding
+                window.location.href = 'onboarding.html';
+            }, 2000);
+        });
+
+        // Social login functions
+        function signInWithGoogle() {
+            alert('Google Sign-In would be implemented here');
+        }
+
+        function signInWithLinkedIn() {
+            alert('LinkedIn Sign-In would be implemented here');
+        }
+
+        // Password validation on input
+        document.getElementById('password').addEventListener('input', validatePassword);
+    </script>
+</body>
+</html>

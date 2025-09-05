@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Your Accounts - Ad Syntho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+        .btn-primary { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+        .platform-card { transition: all 0.3s ease; }
+        .platform-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .platform-card.connected { border-color: #10b981; background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); }
+        .progress-bar { transition: width 0.5s ease; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                        A
+                    </div>
+                    <span class="ml-3 text-xl font-bold text-gray-900">Ad Syntho</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">Welcome, <span id="userName">User</span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Progress Bar -->
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-3xl font-bold text-gray-900">Connect Your Ad Accounts</h1>
+                <span class="text-sm text-gray-600">Step 1 of 2</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="progress-bar bg-blue-600 h-2 rounded-full" style="width: 50%"></div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <div class="flex items-start">
+                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-4 mt-1">
+                    <i class="fas fa-info-circle text-blue-600"></i>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Why connect your accounts?</h3>
+                    <p class="text-gray-600 mb-4">Connect your ad accounts to get unified insights, AI-powered recommendations, and comprehensive analytics across all your campaigns.</p>
+                    <div class="grid md:grid-cols-3 gap-4 text-sm">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Unified dashboard view</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Cross-platform insights</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>AI recommendations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platform Cards -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Google Ads -->
+            <div class="platform-card bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200 cursor-pointer" onclick="connectPlatform('google')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fab fa-google text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="connected-status hidden">
+                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Google Ads</h3>
+                <p class="text-gray-600 text-sm mb-4">Connect your Google Ads account to track search and display campaigns.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">Search, Display, YouTube</span>
+                    <button class="connect-btn text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        Connect
+                    </button>
+                </div>
+            </div>
+
+            <!-- Facebook/Meta -->
+            <div class="platform-card bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200 cursor-pointer" onclick="connectPlatform('facebook')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fab fa-facebook text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="connected-status hidden">
+                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Facebook & Instagram</h3>
+                <p class="text-gray-600 text-sm mb-4">Connect your Meta Business account for social media campaigns.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">Facebook, Instagram, Messenger</span>
+                    <button class="connect-btn text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        Connect
+                    </button>
+                </div>
+            </div>
+
+            <!-- TikTok -->
+            <div class="platform-card bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200 cursor-pointer" onclick="connectPlatform('tiktok')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <i class="fab fa-tiktok text-gray-800 text-xl"></i>
+                    </div>
+                    <div class="connected-status hidden">
+                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">TikTok Ads</h3>
+                <p class="text-gray-600 text-sm mb-4">Connect your TikTok Business account for video campaigns.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">TikTok, Video Ads</span>
+                    <button class="connect-btn text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        Connect
+                    </button>
+                </div>
+            </div>
+
+            <!-- LinkedIn -->
+            <div class="platform-card bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200 cursor-pointer" onclick="connectPlatform('linkedin')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fab fa-linkedin text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="connected-status hidden">
+                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">LinkedIn Ads</h3>
+                <p class="text-gray-600 text-sm mb-4">Connect your LinkedIn Campaign Manager for B2B campaigns.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">LinkedIn, B2B Ads</span>
+                    <button class="connect-btn text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        Connect
+                    </button>
+                </div>
+            </div>
+
+            <!-- Twitter/X -->
+            <div class="platform-card bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200 cursor-pointer" onclick="connectPlatform('twitter')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <i class="fab fa-twitter text-gray-800 text-xl"></i>
+                    </div>
+                    <div class="connected-status hidden">
+                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">X (Twitter) Ads</h3>
+                <p class="text-gray-600 text-sm mb-4">Connect your X Ads account for social media campaigns.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">X, Twitter Ads</span>
+                    <button class="connect-btn text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        Connect
+                    </button>
+                </div>
+            </div>
+
+            <!-- Snapchat -->
+            <div class="platform-card bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200 cursor-pointer" onclick="connectPlatform('snapchat')">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                        <i class="fab fa-snapchat text-yellow-600 text-xl"></i>
+                    </div>
+                    <div class="connected-status hidden">
+                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">Snapchat Ads</h3>
+                <p class="text-gray-600 text-sm mb-4">Connect your Snapchat Ads Manager for AR campaigns.</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">Snapchat, AR Ads</span>
+                    <button class="connect-btn text-blue-600 hover:text-blue-700 font-medium text-sm">
+                        Connect
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connected Accounts Summary -->
+        <div id="connectedSummary" class="bg-white rounded-xl shadow-sm p-6 mb-8 hidden">
+            <h3 class="font-semibold text-gray-900 mb-4">Connected Accounts</h3>
+            <div id="connectedList" class="space-y-3">
+                <!-- Connected accounts will be listed here -->
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+            <button onclick="skipOnboarding()" class="text-gray-600 hover:text-gray-800 font-medium">
+                Skip for now
+            </button>
+            <button id="continueBtn" onclick="continueToDashboard()" 
+                class="btn-primary text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled>
+                Continue to Dashboard
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let connectedPlatforms = [];
+        let connectedCount = 0;
+
+        // Load user data
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            if (userData.firstName) {
+                document.getElementById('userName').textContent = userData.firstName;
+            }
+        });
+
+        function connectPlatform(platform) {
+            const card = event.currentTarget;
+            const connectBtn = card.querySelector('.connect-btn');
+            const connectedStatus = card.querySelector('.connected-status');
+            
+            // Show loading state
+            connectBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i>Connecting...';
+            connectBtn.disabled = true;
+            
+            // Simulate connection process
+            setTimeout(() => {
+                // Mark as connected
+                card.classList.add('connected');
+                connectBtn.innerHTML = '<i class="fas fa-check mr-1"></i>Connected';
+                connectBtn.classList.add('text-green-600');
+                connectBtn.classList.remove('text-blue-600');
+                connectedStatus.classList.remove('hidden');
+                
+                // Add to connected platforms
+                if (!connectedPlatforms.includes(platform)) {
+                    connectedPlatforms.push(platform);
+                    connectedCount++;
+                    updateConnectedSummary();
+                    updateContinueButton();
+                }
+            }, 2000);
+        }
+
+        function updateConnectedSummary() {
+            const summary = document.getElementById('connectedSummary');
+            const list = document.getElementById('connectedList');
+            
+            if (connectedCount > 0) {
+                summary.classList.remove('hidden');
+                list.innerHTML = '';
+                
+                connectedPlatforms.forEach(platform => {
+                    const platformNames = {
+                        'google': 'Google Ads',
+                        'facebook': 'Facebook & Instagram',
+                        'tiktok': 'TikTok Ads',
+                        'linkedin': 'LinkedIn Ads',
+                        'twitter': 'X (Twitter) Ads',
+                        'snapchat': 'Snapchat Ads'
+                    };
+                    
+                    const listItem = document.createElement('div');
+                    listItem.className = 'flex items-center justify-between p-3 bg-green-50 rounded-lg';
+                    listItem.innerHTML = `
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="font-medium text-gray-900">${platformNames[platform]}</span>
+                        </div>
+                        <span class="text-sm text-green-600">Connected</span>
+                    `;
+                    list.appendChild(listItem);
+                });
+            }
+        }
+
+        function updateContinueButton() {
+            const continueBtn = document.getElementById('continueBtn');
+            if (connectedCount > 0) {
+                continueBtn.disabled = false;
+                continueBtn.textContent = `Continue to Dashboard (${connectedCount} connected)`;
+            }
+        }
+
+        function skipOnboarding() {
+            if (confirm('Are you sure you want to skip connecting accounts? You can connect them later from the dashboard.')) {
+                continueToDashboard();
+            }
+        }
+
+        function continueToDashboard() {
+            // Store connected platforms
+            localStorage.setItem('connectedPlatforms', JSON.stringify(connectedPlatforms));
+            
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

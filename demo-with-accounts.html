@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Syntho Dashboard - With Connected Accounts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; }
+        .btn-primary { background: #3b82f6; color: white; padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; }
+        .btn-primary:hover { background: #2563eb; }
+        .connected-badge { background: #dcfce7; color: #166534; }
+        .sync-indicator { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                    <span class="ml-2 text-xl font-bold text-gray-900">Ad Syntho</span>
+                    <span class="ml-3 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">3 Accounts Connected</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2 text-sm text-gray-600">
+                        <div class="w-2 h-2 bg-green-500 rounded-full sync-indicator"></div>
+                        <span>Live Sync</span>
+                    </div>
+                    <button class="btn-primary" onclick="window.location.href='connect-accounts.html'">+ Add Account</button>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Connected Accounts Status -->
+        <div class="card mb-8">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Connected Accounts</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <span class="text-blue-600 text-lg">📘</span>
+                    </div>
+                    <div>
+                        <div class="font-medium text-gray-900">Facebook Ads</div>
+                        <div class="text-sm text-gray-500">12 campaigns • Last sync: 2 min ago</div>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="connected-badge px-2 py-1 text-xs rounded-full">Connected</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <span class="text-blue-600 text-lg">🔍</span>
+                    </div>
+                    <div>
+                        <div class="font-medium text-gray-900">Google Ads</div>
+                        <div class="text-sm text-gray-500">8 campaigns • Last sync: 1 min ago</div>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="connected-badge px-2 py-1 text-xs rounded-full">Connected</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <span class="text-blue-600 text-lg">🎵</span>
+                    </div>
+                    <div>
+                        <div class="font-medium text-gray-900">TikTok Ads</div>
+                        <div class="text-sm text-gray-500">4 campaigns • Last sync: 3 min ago</div>
+                    </div>
+                    <div class="ml-auto">
+                        <span class="connected-badge px-2 py-1 text-xs rounded-full">Connected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced KPI Cards with Real Data -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Spend (24h)</p>
+                        <p class="text-2xl font-bold text-gray-900">$2,847</p>
+                        <p class="text-sm text-green-600">+15.3% vs yesterday</p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                        <span class="text-red-600 text-xl">💰</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Revenue (24h)</p>
+                        <p class="text-2xl font-bold text-gray-900">$7,118</p>
+                        <p class="text-sm text-green-600">+22.1% vs yesterday</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <span class="text-green-600 text-xl">📈</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Average ROAS</p>
+                        <p class="text-2xl font-bold text-gray-900">2.50x</p>
+                        <p class="text-sm text-green-600">+8.7% vs yesterday</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span class="text-blue-600 text-xl">🎯</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Active Campaigns</p>
+                        <p class="text-2xl font-bold text-gray-900">24</p>
+                        <p class="text-sm text-gray-500">3 platforms</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                        <span class="text-purple-600 text-xl">🚀</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-time Performance Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Live Performance (Last 24h)</h3>
+                <canvas id="liveChart" width="400" height="200"></canvas>
+            </div>
+
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Platform Performance</h3>
+                <canvas id="platformChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- AI Insights with Real Data -->
+        <div class="card mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                    <span class="text-yellow-500 text-xl mr-2">💡</span>
+                    AI Insights (Based on Live Data)
+                </h3>
+                <span class="text-sm text-gray-500">Updated 1 minute ago</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-4 rounded-lg border-l-4 border-red-500 bg-red-50">
+                    <div class="flex items-start justify-between mb-2">
+                        <h4 class="font-medium text-gray-900">Facebook CTR Alert</h4>
+                        <span class="text-xs px-2 py-1 rounded-full bg-red-100 text-red-800">high</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Campaign "Summer Sale" CTR dropped to 1.2% (below 1.8% average). Consider refreshing creatives.</p>
+                    <div class="text-xs text-gray-500 mb-2">Confidence: 89% | Based on 12 campaigns</div>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">View Campaign →</button>
+                </div>
+
+                <div class="p-4 rounded-lg border-l-4 border-yellow-500 bg-yellow-50">
+                    <div class="flex items-start justify-between mb-2">
+                        <h4 class="font-medium text-gray-900">Google Budget Opportunity</h4>
+                        <span class="text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-800">medium</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">"Brand Keywords" campaign ROAS is 3.2x (25% above average). Consider increasing budget by 20%.</p>
+                    <div class="text-xs text-gray-500 mb-2">Confidence: 92% | Potential: +$1,200 revenue</div>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Adjust Budget →</button>
+                </div>
+
+                <div class="p-4 rounded-lg border-l-4 border-blue-500 bg-blue-50">
+                    <div class="flex items-start justify-between mb-2">
+                        <h4 class="font-medium text-gray-900">TikTok Audience Trend</h4>
+                        <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">low</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">18-24 age group showing 4.8% engagement (50% above average). Test expanded targeting.</p>
+                    <div class="text-xs text-gray-500 mb-2">Confidence: 78% | Trend: +15% this week</div>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Create Test →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Campaign Data -->
+        <div class="card">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Live Campaign Performance</h3>
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-green-500 rounded-full sync-indicator"></div>
+                    <span class="text-sm text-gray-500">Live data</span>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Campaign</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Platform</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Spend (24h)</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Revenue (24h)</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ROAS</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">CTR</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Summer Sale 2024</div>
+                                <div class="text-sm text-gray-500">Facebook</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="text-lg mr-2">📘</span>
+                                    <span class="text-sm text-gray-900">Facebook</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">active</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$847</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$2,118</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2.50x</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1.2%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Brand Keywords</div>
+                                <div class="text-sm text-gray-500">Google Ads</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="text-lg mr-2">🔍</span>
+                                    <span class="text-sm text-gray-900">Google Ads</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">active</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$1,200</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$3,840</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">3.20x</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2.8%</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">Product Launch</div>
+                                <div class="text-sm text-gray-500">TikTok</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="text-lg mr-2">🎵</span>
+                                    <span class="text-sm text-gray-900">TikTok</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">active</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$800</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$1,160</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1.45x</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">4.8%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Live Performance Chart
+        const liveCtx = document.getElementById('liveChart').getContext('2d');
+        new Chart(liveCtx, {
+            type: 'line',
+            data: {
+                labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+                datasets: [{
+                    label: 'Spend',
+                    data: [120, 180, 220, 280, 320, 290, 250],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'Revenue',
+                    data: [300, 450, 550, 700, 800, 725, 625],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Platform Chart
+        const platformCtx = document.getElementById('platformChart').getContext('2d');
+        new Chart(platformCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Facebook', 'Google Ads', 'TikTok'],
+                datasets: [{
+                    data: [847, 1200, 800],
+                    backgroundColor: ['#1877F2', '#4285F4', '#000000'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+
+        // Simulate live data updates
+        setInterval(() => {
+            // Update sync indicators
+            const indicators = document.querySelectorAll('.sync-indicator');
+            indicators.forEach(indicator => {
+                indicator.style.animation = 'none';
+                setTimeout(() => {
+                    indicator.style.animation = 'pulse 2s infinite';
+                }, 10);
+            });
+        }, 5000);
+    </script>
+</body>
+</html>

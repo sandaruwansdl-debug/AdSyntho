@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Authentication Demo - Ad Syntho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
+                    A
+                </div>
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">Real Authentication Demo</h1>
+                <p class="text-gray-600">This uses actual Google OAuth</p>
+            </div>
+
+            <!-- Real Google Sign-In Button -->
+            <div id="g_id_onload"
+                 data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" 
+                 data-type="standard"
+                 data-size="large"
+                 data-theme="outline"
+                 data-text="sign_in_with"
+                 data-shape="rectangular"
+                 data-logo_alignment="left">
+            </div>
+
+            <!-- Manual Google Sign-In Button -->
+            <button onclick="signInWithGoogle()" 
+                class="w-full mt-4 inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <i class="fab fa-google text-red-500 mr-3"></i>
+                Sign in with Google (Manual)
+            </button>
+
+            <!-- Demo Button -->
+            <button onclick="demoLogin()" 
+                class="w-full mt-4 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700">
+                Demo Login (Simulation)
+            </button>
+
+            <!-- User Info Display -->
+            <div id="userInfo" class="mt-6 p-4 bg-gray-50 rounded-lg hidden">
+                <h3 class="font-semibold text-gray-900 mb-2">User Information:</h3>
+                <div id="userDetails"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real Google OAuth callback
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            
+            // Decode the JWT token (in real app, verify on server)
+            const payload = JSON.parse(atob(response.credential.split('.')[1]));
+            
+            const userData = {
+                firstName: payload.given_name,
+                lastName: payload.family_name,
+                email: payload.email,
+                profilePicture: payload.picture,
+                provider: 'google',
+                verified: true,
+                token: response.credential
+            };
+            
+            displayUserInfo(userData);
+            localStorage.setItem('userData', JSON.stringify(userData));
+            localStorage.setItem('isLoggedIn', 'true');
+        }
+
+        // Manual Google Sign-In (requires proper setup)
+        function signInWithGoogle() {
+            alert('For real Google OAuth, you need to:\n1. Create a Google Cloud Project\n2. Enable Google+ API\n3. Create OAuth 2.0 credentials\n4. Add your domain to authorized origins\n\nThis is a demo - using simulation instead.');
+            demoLogin();
+        }
+
+        // Demo login (simulation)
+        function demoLogin() {
+            const userData = {
+                firstName: 'Demo',
+                lastName: 'User',
+                email: 'demo@example.com',
+                provider: 'demo',
+                verified: false
+            };
+            
+            displayUserInfo(userData);
+            localStorage.setItem('userData', JSON.stringify(userData));
+            localStorage.setItem('isLoggedIn', 'true');
+        }
+
+        function displayUserInfo(userData) {
+            const userInfo = document.getElementById('userInfo');
+            const userDetails = document.getElementById('userDetails');
+            
+            userDetails.innerHTML = `
+                <p><strong>Name:</strong> ${userData.firstName} ${userData.lastName}</p>
+                <p><strong>Email:</strong> ${userData.email}</p>
+                <p><strong>Provider:</strong> ${userData.provider}</p>
+                <p><strong>Verified:</strong> ${userData.verified ? 'Yes' : 'No'}</p>
+                ${userData.profilePicture ? `<img src="${userData.profilePicture}" class="w-16 h-16 rounded-full mt-2">` : ''}
+            `;
+            
+            userInfo.classList.remove('hidden');
+        }
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = localStorage.getItem('userData');
+            if (userData) {
+                displayUserInfo(JSON.parse(userData));
+            }
+        });
+    </script>
+</body>
+</html>

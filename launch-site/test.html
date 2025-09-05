@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Navigation</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { padding: 10px 20px; margin: 10px; background: #0ea5e9; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0284c7; }
+    </style>
+</head>
+<body>
+    <h1>Navigation Test</h1>
+    <p>Click the button below to test navigation:</p>
+    
+    <button onclick="startFreeTrial()">Start Free Trial</button>
+    <button onclick="goToDashboard()">Go to Dashboard</button>
+    <button onclick="goToInsights()">Go to Insights</button>
+    
+    <script>
+        function startFreeTrial() {
+            console.log("startFreeTrial clicked");
+            window.location.href = "dashboard.html";
+        }
+        
+        function goToDashboard() {
+            console.log("goToDashboard clicked");
+            window.location.href = "dashboard.html";
+        }
+        
+        function goToInsights() {
+            console.log("goToInsights clicked");
+            window.location.href = "insights.html";
+        }
+        
+        // Test if JavaScript is working
+        console.log("Test page loaded successfully");
+    </script>
+</body>
+</html>

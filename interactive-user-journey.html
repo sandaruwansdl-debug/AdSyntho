@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Syntho - Complete User Journey Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .step { display: none; }
+        .step.active { display: block; }
+        .progress-bar { transition: width 0.3s ease; }
+        .btn-primary { background: #3b82f6; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-secondary { background: #f1f5f9; color: #475569; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-secondary:hover { background: #e2e8f0; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 24px; margin: 16px 0; }
+        .insight-card { border-left: 4px solid #ef4444; background: #fef2f2; }
+        .insight-card.opportunity { border-left-color: #f59e0b; background: #fffbeb; }
+        .insight-card.trend { border-left-color: #3b82f6; background: #eff6ff; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Progress Bar -->
+    <div class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-2">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-medium text-gray-700">User Journey Progress</span>
+                <span class="text-sm text-gray-500" id="stepCounter">Step 1 of 11</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-blue-600 h-2 rounded-full progress-bar" id="progressBar" style="width: 9%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 1: Landing Page -->
+    <div class="step active" id="step1">
+        <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+            <div class="max-w-6xl mx-auto px-4 py-16">
+                <div class="text-center mb-12">
+                    <div class="w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <span class="text-3xl font-bold text-white">A</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                        Unify Your
+                        <span class="text-blue-600"> Paid Campaigns</span>
+                        <br />
+                        with AI-Powered Insights
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                        Connect all your ad accounts and get actionable recommendations to optimize performance, 
+                        save time, and increase your return on ad spend.
+                    </p>
+                    <button class="btn-primary text-lg px-8 py-4" onclick="nextStep()">
+                        Start Free Trial →
+                    </button>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                    <div class="card text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-blue-600 text-2xl">📊</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Unified Dashboard</h3>
+                        <p class="text-gray-600">View all campaigns in one place</p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-blue-600 text-2xl">🤖</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">AI-Powered Insights</h3>
+                        <p class="text-gray-600">Get actionable recommendations</p>
+                    </div>
+                    <div class="card text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-blue-600 text-2xl">⚡</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Real-time Sync</h3>
+                        <p class="text-gray-600">Live campaign data updates</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Sign Up -->
+    <div class="step" id="step2">
+        <div class="min-h-screen flex items-center justify-center bg-gray-50">
+            <div class="max-w-md w-full">
+                <div class="card">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Create Your Account</h2>
+                    <form>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="your@email.com">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your Company">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Ad Spend</label>
+                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>$1K - $10K</option>
+                                <option>$10K - $50K</option>
+                                <option>$50K+</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-primary w-full" onclick="nextStep()">Create Account</button>
+                    </form>
+                    <p class="text-center text-sm text-gray-600 mt-4">
+                        Already have an account? <a href="#" class="text-blue-600">Sign in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 3: Onboarding -->
+    <div class="step" id="step3">
+        <div class="min-h-screen bg-gray-50 py-16">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Let's Get You Started</h2>
+                    <p class="text-xl text-gray-600">Tell us about your advertising goals</p>
+                </div>
+                
+                <div class="card max-w-2xl mx-auto">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">What's your primary goal?</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="goal" value="roas" class="mr-3">
+                                <span>Increase Return on Ad Spend (ROAS)</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="goal" value="time" class="mr-3">
+                                <span>Save Time on Campaign Management</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="goal" value="insights" class="mr-3">
+                                <span>Get Better Campaign Insights</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Which platforms do you use?</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="checkbox" name="platform" value="facebook" class="mr-3">
+                                <span>📘 Facebook Ads</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="checkbox" name="platform" value="google" class="mr-3">
+                                <span>🔍 Google Ads</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="checkbox" name="platform" value="tiktok" class="mr-3">
+                                <span>🎵 TikTok Ads</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="checkbox" name="platform" value="linkedin" class="mr-3">
+                                <span>💼 LinkedIn Ads</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary w-full" onclick="nextStep()">Continue to Account Connection</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 4: Account Connection -->
+    <div class="step" id="step4">
+        <div class="min-h-screen bg-gray-50 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Connect Your Ad Accounts</h2>
+                    <p class="text-xl text-gray-600">Securely connect your advertising platforms</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-blue-600 text-2xl">📘</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Facebook Ads</h3>
+                        <p class="text-gray-600 text-sm mb-4">Connect your Facebook ad accounts</p>
+                        <button class="btn-primary w-full" onclick="simulateConnection('facebook')">Connect Facebook</button>
+                    </div>
+                    
+                    <div class="card text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-blue-600 text-2xl">🔍</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Google Ads</h3>
+                        <p class="text-gray-600 text-sm mb-4">Connect your Google Ads account</p>
+                        <button class="btn-primary w-full" onclick="simulateConnection('google')">Connect Google</button>
+                    </div>
+                    
+                    <div class="card text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-blue-600 text-2xl">🎵</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">TikTok Ads</h3>
+                        <p class="text-gray-600 text-sm mb-4">Connect your TikTok ad accounts</p>
+                        <button class="btn-primary w-full" onclick="simulateConnection('tiktok')">Connect TikTok</button>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <div id="connectionStatus" class="hidden">
+                        <div class="card max-w-md mx-auto">
+                            <div class="flex items-center justify-center mb-4">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    <span class="text-green-600">✓</span>
+                                </div>
+                                <span class="text-green-600 font-medium">All accounts connected successfully!</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Syncing your campaign data...</p>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-primary mt-4" onclick="nextStep()" id="continueBtn" style="display: none;">Continue to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 5: Dashboard -->
+    <div class="step" id="step5">
+        <div class="min-h-screen bg-gray-50">
+            <div class="bg-white shadow-sm border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center h-16">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
+                            <span class="ml-2 text-xl font-bold text-gray-900">Ad Syntho</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span class="text-sm text-gray-500">Last sync: 2 min ago</span>
+                            <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Total Spend (24h)</p>
+                                <p class="text-2xl font-bold text-gray-900">$2,847</p>
+                                <p class="text-sm text-green-600">+15% vs yesterday</p>
+                            </div>
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                <span class="text-red-600 text-xl">💰</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Total Revenue (24h)</p>
+                                <p class="text-2xl font-bold text-gray-900">$7,118</p>
+                                <p class="text-sm text-green-600">+22% vs yesterday</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600 text-xl">📈</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Average ROAS</p>
+                                <p class="text-2xl font-bold text-gray-900">2.50x</p>
+                                <p class="text-sm text-green-600">+8% vs yesterday</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 text-xl">🎯</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Active Campaigns</p>
+                                <p class="text-2xl font-bold text-gray-900">24</p>
+                                <p class="text-sm text-gray-500">3 platforms</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <span class="text-purple-600 text-xl">��</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Performance Trend</h3>
+                        <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <span class="text-gray-500">📊 Interactive Chart - Last 7 Days</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Platform Distribution</h3>
+                        <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <span class="text-gray-500">🥧 Platform Spend Distribution</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button class="btn-primary" onclick="nextStep()">View AI Insights →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 6: AI Insights -->
+    <div class="step" id="step6">
+        <div class="min-h-screen bg-gray-50 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">AI Insights & Recommendations</h2>
+                    <p class="text-xl text-gray-600">Actionable insights based on your campaign data</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card insight-card">
+                        <div class="flex items-start justify-between mb-3">
+                            <h4 class="font-medium text-gray-900">Campaign Performance Alert</h4>
+                            <span class="text-xs px-2 py-1 rounded-full bg-red-100 text-red-800">high</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Your Facebook campaign CTR has dropped 15% this week. Consider refreshing ad creatives.</p>
+                        <div class="text-xs text-gray-500 mb-3">Confidence: 89% | Based on 12 campaigns</div>
+                        <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">View Campaign →</button>
+                    </div>
+                    
+                    <div class="card insight-card opportunity">
+                        <div class="flex items-start justify-between mb-3">
+                            <h4 class="font-medium text-gray-900">Budget Optimization</h4>
+                            <span class="text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-800">medium</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Google Ads campaign is performing 25% above average. Consider increasing budget allocation.</p>
+                        <div class="text-xs text-gray-500 mb-3">Confidence: 92% | Potential: +$1,200 revenue</div>
+                        <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Adjust Budget →</button>
+                    </div>
+                    
+                    <div class="card insight-card trend">
+                        <div class="flex items-start justify-between mb-3">
+                            <h4 class="font-medium text-gray-900">Audience Discovery</h4>
+                            <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">low</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">18-24 age group showing 4.8% engagement. Test expanded targeting.</p>
+                        <div class="text-xs text-gray-500 mb-3">Confidence: 78% | Trend: +15% this week</div>
+                        <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Create Test →</button>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button class="btn-primary" onclick="nextStep()">View Reports →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 7: Reports -->
+    <div class="step" id="step7">
+        <div class="min-h-screen bg-gray-50 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Performance Reports</h2>
+                    <p class="text-xl text-gray-600">Comprehensive campaign analysis and insights</p>
+                </div>
+                
+                <div class="card mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Last 30 Days Summary</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <div class="text-2xl font-bold text-gray-900">$374,250</div>
+                            <div class="text-sm text-gray-600">Total Spend</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <div class="text-2xl font-bold text-gray-900">$935,625</div>
+                            <div class="text-sm text-gray-600">Total Revenue</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <div class="text-2xl font-bold text-gray-900">2.50x</div>
+                            <div class="text-sm text-gray-600">Average ROAS</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <div class="text-2xl font-bold text-gray-900">24</div>
+                            <div class="text-sm text-gray-600">Active Campaigns</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Platform Performance</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">🔍</span>
+                                <div>
+                                    <div class="font-medium text-gray-900">Google Ads</div>
+                                    <div class="text-sm text-gray-600">8 campaigns</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-lg font-bold text-gray-900">2.80x ROAS</div>
+                                <div class="text-sm text-green-600">+18% vs last month</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">📘</span>
+                                <div>
+                                    <div class="font-medium text-gray-900">Facebook Ads</div>
+                                    <div class="text-sm text-gray-600">12 campaigns</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-lg font-bold text-gray-900">2.50x ROAS</div>
+                                <div class="text-sm text-green-600">+12% vs last month</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="text-2xl mr-3">🎵</span>
+                                <div>
+                                    <div class="font-medium text-gray-900">TikTok Ads</div>
+                                    <div class="text-sm text-gray-600">4 campaigns</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-lg font-bold text-gray-900">1.28x ROAS</div>
+                                <div class="text-sm text-green-600">+40% vs last month</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button class="btn-primary" onclick="nextStep()">View Alerts →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 8: Alerts -->
+    <div class="step" id="step8">
+        <div class="min-h-screen bg-gray-50 py-16">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Alerts & Notifications</h2>
+                    <p class="text-xl text-gray-600">Stay informed about your campaign performance</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="card">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start">
+                                <div class="w-3 h-3 bg-red-500 rounded-full mt-2 mr-3"></div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">CTR Drop Alert</h4>
+                                    <p class="text-sm text-gray-600">Campaign "Summer Sale 2024" CTR dropped from 1.4% to 1.2%</p>
+                                    <p class="text-xs text-gray-500">2 hours ago</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Pending</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start">
+                                <div class="w-3 h-3 bg-green-500 rounded-full mt-2 mr-3"></div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">High Performance Alert</h4>
+                                    <p class="text-sm text-gray-600">Campaign "Brand Keywords" ROAS increased to 3.2x</p>
+                                    <p class="text-xs text-gray-500">4 hours ago</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Applied</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start">
+                                <div class="w-3 h-3 bg-yellow-500 rounded-full mt-2 mr-3"></div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Budget Alert</h4>
+                                    <p class="text-sm text-gray-600">Campaign "Product Launch" 15% over daily budget</p>
+                                    <p class="text-xs text-gray-500">6 hours ago</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Resolved</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button class="btn-primary" onclick="nextStep()">Book Consultancy →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 9: Consultancy Booking -->
+    <div class="step" id="step9">
+        <div class="min-h-screen bg-gray-50 py-16">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Monthly Consultancy</h2>
+                    <p class="text-xl text-gray-600">20-minute strategy session with our experts</p>
+                </div>
+                
+                <div class="card max-w-2xl mx-auto">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Available Time Slots</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="timeslot" value="tue-2pm" class="mr-3">
+                                <span>Tuesday, 2:00 PM - 2:20 PM</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="timeslot" value="thu-10am" class="mr-3">
+                                <span>Thursday, 10:00 AM - 10:20 AM</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                <input type="radio" name="timeslot" value="fri-3pm" class="mr-3">
+                                <span>Friday, 3:00 PM - 3:20 PM</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Agenda Items</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-3">
+                                <span>Review last month's performance</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-3">
+                                <span>Discuss new campaign strategies</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-3">
+                                <span>Optimize budget allocation</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-3">
+                                <span>Plan Q2 objectives</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary w-full" onclick="nextStep()">Book Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 10: Consultancy Session -->
+    <div class="step" id="step10">
+        <div class="min-h-screen bg-gray-50 py-16">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Monthly Consultancy Session</h2>
+                    <p class="text-xl text-gray-600">20-minute strategy session</p>
+                </div>
+                
+                <div class="card">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Session Agenda</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                                    <span class="text-blue-600 text-sm font-bold">1</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Performance Review (8 min)</h4>
+                                    <p class="text-sm text-gray-600">Last month's results: 2.50x ROAS, $935K revenue, 25% improvement</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                                    <span class="text-blue-600 text-sm font-bold">2</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">AI Insights Discussion (6 min)</h4>
+                                    <p class="text-sm text-gray-600">Applied recommendations: +15% CTR, +$1,200 revenue, +25% engagement</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                                    <span class="text-blue-600 text-sm font-bold">3</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Strategy Planning (6 min)</h4>
+                                    <p class="text-sm text-gray-600">Next month goals: 2.7x ROAS target, budget reallocation, 3 new campaigns</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Key Outcomes</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="text-lg font-bold text-green-600">15% ROAS Improvement</div>
+                                <div class="text-sm text-gray-600">Achieved this month</div>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg">
+                                <div class="text-lg font-bold text-blue-600">10 Hours Saved</div>
+                                <div class="text-sm text-gray-600">Per week with Ad Syntho</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button class="btn-primary" onclick="nextStep()">Complete Journey →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 11: Journey Complete -->
+    <div class="step" id="step11">
+        <div class="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <div class="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl text-white">✓</span>
+                </div>
+                <h1 class="text-4xl font-bold text-gray-900 mb-6">Journey Complete!</h1>
+                <p class="text-xl text-gray-600 mb-8">You've experienced the complete Ad Syntho user journey</p>
+                
+                <div class="card max-w-2xl mx-auto mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">What You've Accomplished</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600">50%</div>
+                            <div class="text-sm text-gray-600">Time Savings</div>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600">25%</div>
+                            <div class="text-sm text-gray-600">ROAS Improvement</div>
+                        </div>
+                        <div class="text-center p-4 bg-purple-50 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600">3</div>
+                            <div class="text-sm text-gray-600">Platforms Connected</div>
+                        </div>
+                        <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                            <div class="text-2xl font-bold text-yellow-600">24</div>
+                            <div class="text-sm text-gray-600">Campaigns Managed</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <button class="btn-primary text-lg px-8 py-4" onclick="restartJourney()">Experience Again</button>
+                    <div>
+                        <button class="btn-secondary" onclick="window.open('index.html', '_blank')">View All Demos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 11;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('stepCounter').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function showStep(stepNumber) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show current step
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+            
+            // Update progress
+            updateProgress();
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function simulateConnection(platform) {
+            const statusDiv = document.getElementById('connectionStatus');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            statusDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                continueBtn.style.display = 'block';
+            }, 2000);
+        }
+
+        function restartJourney() {
+            currentStep = 1;
+            showStep(currentStep);
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

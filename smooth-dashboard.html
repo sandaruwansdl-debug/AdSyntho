@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Syntho Dashboard - Smooth & Intuitive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        }
+        
+        .smooth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .smooth-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        
+        .filter-chip {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            transition: all 0.2s ease;
+        }
+        
+        .filter-chip:hover {
+            background: rgba(14, 165, 233, 0.1);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        
+        .filter-chip.active {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .smooth-button {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .smooth-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);
+        }
+        
+        .floating-action {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+        }
+        
+        .insight-badge {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+        
+        .insight-badge.high {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+        
+        .insight-badge.opportunity {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+        }
+        
+        .pulse-dot {
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen smooth-scroll" x-data="smoothDashboard()">
+    <!-- Navigation -->
+    <nav class="glass-nav sticky top-0 z-40">
+        <div class="w-full px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                        A
+                    </div>
+                    <span class="ml-3 text-xl font-bold text-gray-900">Ad Syntho</span>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full pulse-dot"></div>
+                        <span class="text-sm text-gray-600">Live Sync</span>
+                    </div>
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-md"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="w-full px-6 lg:px-8 py-8">
+        <!-- Welcome Header -->
+        <div class="mb-8 slide-in">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Good morning! 👋</h1>
+                    <p class="text-gray-600">Here's what's happening with your campaigns today</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="smooth-button text-white px-4 py-2 rounded-xl font-medium shadow-lg">
+                        <i class="fas fa-plus mr-2"></i>New Campaign
+                    </button>
+                    <button class="px-4 py-2 bg-white text-gray-700 rounded-xl font-medium shadow-sm hover:shadow-md transition-all">
+                        <i class="fas fa-download mr-2"></i>Export
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Filters -->
+        <div class="mb-8 fade-in">
+            <div class="flex items-center space-x-3 overflow-x-auto pb-2">
+                <span class="text-sm font-medium text-gray-700 whitespace-nowrap">Quick filters:</span>
+                <button @click="setQuickFilter('all')" 
+                        :class="quickFilter === 'all' ? 'filter-chip active' : 'filter-chip'"
+                        class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+                    All Campaigns
+                </button>
+                <button @click="setQuickFilter('facebook')" 
+                        :class="quickFilter === 'facebook' ? 'filter-chip active' : 'filter-chip'"
+                        class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+                    <i class="fab fa-facebook mr-2"></i>Facebook
+                </button>
+                <button @click="setQuickFilter('google')" 
+                        :class="quickFilter === 'google' ? 'filter-chip active' : 'filter-chip'"
+                        class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+                    <i class="fab fa-google mr-2"></i>Google Ads
+                </button>
+                <button @click="setQuickFilter('tiktok')" 
+                        :class="quickFilter === 'tiktok' ? 'filter-chip active' : 'filter-chip'"
+                        class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+                    <i class="fas fa-music mr-2"></i>TikTok
+                </button>
+                <button @click="setQuickFilter('high')" 
+                        :class="quickFilter === 'high' ? 'filter-chip active' : 'filter-chip'"
+                        class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+                    <i class="fas fa-star mr-2"></i>Top Performers
+                </button>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="metric-card p-6 rounded-2xl slide-in">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 mb-1">Total Spend</p>
+                        <p class="text-3xl font-bold text-gray-900 mb-1">$12,847</p>
+                        <p class="text-sm text-green-600 flex items-center">
+                            <i class="fas fa-arrow-up mr-1 text-xs"></i>
+                            +15.2% vs yesterday
+                        </p>
+                    </div>
+                    <div class="w-14 h-14 bg-gradient-to-br from-red-400 to-red-500 rounded-2xl flex items-center justify-center shadow-lg">
+                        <i class="fas fa-dollar-sign text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card p-6 rounded-2xl slide-in" style="animation-delay: 0.1s;">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 mb-1">Total Revenue</p>
+                        <p class="text-3xl font-bold text-gray-900 mb-1">$32,118</p>
+                        <p class="text-sm text-green-600 flex items-center">
+                            <i class="fas fa-arrow-up mr-1 text-xs"></i>
+                            +22.8% vs yesterday
+                        </p>
+                    </div>
+                    <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+                        <i class="fas fa-chart-line text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card p-6 rounded-2xl slide-in" style="animation-delay: 0.2s;">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 mb-1">Average ROAS</p>
+                        <p class="text-3xl font-bold text-gray-900 mb-1">2.50x</p>
+                        <p class="text-sm text-green-600 flex items-center">
+                            <i class="fas fa-arrow-up mr-1 text-xs"></i>
+                            +8.3% vs yesterday
+                        </p>
+                    </div>
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
+                        <i class="fas fa-bullseye text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card p-6 rounded-2xl slide-in" style="animation-delay: 0.3s;">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 mb-1">Active Campaigns</p>
+                        <p class="text-3xl font-bold text-gray-900 mb-1">24</p>
+                        <p class="text-sm text-gray-500">3 platforms</p>
+                    </div>
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
+                        <i class="fas fa-rocket text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="mb-8 fade-in">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                        <i class="fas fa-brain text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">AI Insights</h3>
+                        <p class="text-sm text-gray-600">Updated 2 minutes ago</p>
+                    </div>
+                </div>
+                <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    View All →
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="insight-badge high p-4 rounded-2xl">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-sm"></i>
+                        </div>
+                        <span class="text-xs px-2 py-1 bg-red-100 text-red-800 rounded-full font-medium">High</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">CTR Drop Detected</h4>
+                    <p class="text-sm text-gray-600 mb-3">Facebook campaign CTR dropped 15% this week</p>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">View Details →</button>
+                </div>
+                
+                <div class="insight-badge opportunity p-4 rounded-2xl">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-lightbulb text-yellow-600 text-sm"></i>
+                        </div>
+                        <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full font-medium">Opportunity</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Budget Optimization</h4>
+                    <p class="text-sm text-gray-600 mb-3">Google Ads performing 25% above average</p>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Apply →</button>
+                </div>
+                
+                <div class="insight-badge p-4 rounded-2xl">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-chart-line text-blue-600 text-sm"></i>
+                        </div>
+                        <span class="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full font-medium">Trending</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Audience Discovery</h4>
+                    <p class="text-sm text-gray-600 mb-3">18-24 age group showing high engagement</p>
+                    <button class="text-sm text-blue-600 hover:text-blue-700 font-medium">Create Test →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="smooth-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Performance Trend</h3>
+                    <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+                        <button class="px-3 py-1 text-sm bg-white text-gray-900 rounded-md shadow-sm">7D</button>
+                        <button class="px-3 py-1 text-sm text-gray-600 hover:bg-gray-200 rounded-md">30D</button>
+                        <button class="px-3 py-1 text-sm text-gray-600 hover:bg-gray-200 rounded-md">90D</button>
+                    </div>
+                </div>
+                <div class="h-64">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="smooth-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Platform Distribution</h3>
+                    <div class="text-sm text-gray-500">Last 7 days</div>
+                </div>
+                <div class="h-64">
+                    <canvas id="platformChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaign List -->
+        <div class="smooth-card rounded-2xl overflow-hidden">
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-900">Your Campaigns</h3>
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <input type="text" placeholder="Search campaigns..." 
+                                   class="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400 text-sm"></i>
+                        </div>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-all">
+                            <i class="fas fa-filter mr-2"></i>Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divide-y divide-gray-100">
+                <div class="p-6 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mr-4 shadow-md">
+                                <i class="fas fa-bullseye text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Brand Keywords</h4>
+                                <p class="text-sm text-gray-600">Google Ads • Search Campaign</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-6">
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-gray-900">$7,840</p>
+                                <p class="text-xs text-gray-500">Revenue</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-gray-900">3.2x</p>
+                                <p class="text-xs text-gray-500">ROAS</p>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Active
+                                </span>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-6 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mr-4 shadow-md">
+                                <i class="fas fa-shopping-cart text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Summer Sale 2024</h4>
+                                <p class="text-sm text-gray-600">Facebook • Conversion Campaign</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-6">
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-gray-900">$7,560</p>
+                                <p class="text-xs text-gray-500">Revenue</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-gray-900">1.8x</p>
+                                <p class="text-xs text-gray-500">ROAS</p>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                    Needs Attention
+                                </span>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-6 hover:bg-gray-50 transition-colors">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-600 rounded-xl flex items-center justify-center mr-4 shadow-md">
+                                <i class="fas fa-video text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Product Launch</h4>
+                                <p class="text-sm text-gray-600">TikTok • Video Views Campaign</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-6">
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-gray-900">$2,340</p>
+                                <p class="text-xs text-gray-500">Revenue</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-gray-900">1.3x</p>
+                                <p class="text-xs text-gray-500">ROAS</p>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Active
+                                </span>
+                            </div>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action">
+        <button class="smooth-button text-white w-14 h-14 rounded-full shadow-xl">
+            <i class="fas fa-plus text-xl"></i>
+        </button>
+    </div>
+
+    <script>
+        function smoothDashboard() {
+            return {
+                quickFilter: 'all',
+                
+                init() {
+                    this.initCharts();
+                },
+                
+                setQuickFilter(filter) {
+                    this.quickFilter = filter;
+                    // Simulate filtering
+                    console.log('Filtering by:', filter);
+                },
+                
+                initCharts() {
+                    // Performance Chart
+                    const ctx1 = document.getElementById('performanceChart').getContext('2d');
+                    new Chart(ctx1, {
+                        type: 'line',
+                        data: {
+                            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            datasets: [{
+                                label: 'Revenue',
+                                data: [28000, 32000, 29000, 35000, 38000, 42000, 45000],
+                                borderColor: '#0ea5e9',
+                                backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 3,
+                                pointBackgroundColor: '#0ea5e9',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2,
+                                pointRadius: 6
+                            }, {
+                                label: 'Spend',
+                                data: [12000, 14000, 13000, 15000, 16000, 18000, 19000],
+                                borderColor: '#ef4444',
+                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                borderWidth: 3,
+                                pointBackgroundColor: '#ef4444',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2,
+                                pointRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                    labels: {
+                                        usePointStyle: true,
+                                        padding: 20
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: {
+                                        color: 'rgba(0, 0, 0, 0.05)',
+                                        drawBorder: false
+                                    },
+                                    ticks: {
+                                        color: '#6b7280'
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        color: '#6b7280'
+                                    }
+                                }
+                            },
+                            interaction: {
+                                intersect: false,
+                                mode: 'index'
+                            }
+                        }
+                    });
+                    
+                    // Platform Chart
+                    const ctx2 = document.getElementById('platformChart').getContext('2d');
+                    new Chart(ctx2, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Google Ads', 'Facebook', 'TikTok'],
+                            datasets: [{
+                                data: [45, 35, 20],
+                                backgroundColor: ['#0ea5e9', '#3b82f6', '#ec4899'],
+                                borderWidth: 0,
+                                hoverOffset: 10
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        usePointStyle: true,
+                                        padding: 20
+                                    }
+                                }
+                            },
+                            cutout: '60%'
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>
