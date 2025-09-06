@@ -69,18 +69,16 @@ async function handleCheckoutSessionCompleted(session: any) {
     where: { stripeSubscriptionId: subscriptionId },
     update: {
       status: subscription.status,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      planId: subscription.items.data[0].price.id,
+      stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      stripePriceId: subscription.items.data[0].price.id,
     },
     create: {
       userId: session.metadata?.userId || 'unknown',
       stripeCustomerId: customerId,
       stripeSubscriptionId: subscriptionId,
       status: subscription.status,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      planId: subscription.items.data[0].price.id,
+      stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      stripePriceId: subscription.items.data[0].price.id,
     },
   });
 
