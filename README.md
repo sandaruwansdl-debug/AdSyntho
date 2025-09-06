@@ -1,1 +1,1 @@
-# Ad Syntho Dashboard
+# Ad Syntho Dashboard - AI-Powered Campaign Management
