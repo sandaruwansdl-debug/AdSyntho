@@ -1,269 +1,363 @@
-'use client';
-
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Head from 'next/head';
-import { motion } from 'framer-motion';
-import { 
-  ChartBarIcon, 
-  LightBulbIcon, 
-  CogIcon, 
-  ArrowRightIcon,
-  CheckCircleIcon,
-  StarIcon
-} from '@heroicons/react/24/outline';
-
-export default function HomePage() {
-  const [email, setEmail] = useState('');
-  const router = useRouter();
-
-  const handleGetStarted = () => {
-    // Direct access to dashboard - no authentication
-    router.push('/dashboard-direct');
-  };
-
-  const handleStartTrial = () => {
-    if (email) {
-      // In production, this would handle email signup
-      console.log('Email signup:', email);
-      router.push('/dashboard-direct');
-    } else {
-      // Direct access to dashboard
-      router.push('/dashboard-direct');
-    }
-  };
-
-  const features = [
-    {
-      icon: ChartBarIcon,
-      title: 'Unified Dashboard',
-      description: 'Connect all your ad accounts and view performance in one place'
-    },
-    {
-      icon: LightBulbIcon,
-      title: 'AI-Powered Insights',
-      description: 'Get actionable recommendations to optimize your campaigns'
-    },
-    {
-      icon: CogIcon,
-      title: 'Smart Automation',
-      description: 'Automate routine tasks and focus on strategy'
-    }
-  ];
-
-  const benefits = [
-    'Save 10+ hours per week on campaign analysis',
-    'Increase ROAS by 25% with AI insights',
-    'Connect unlimited ad accounts',
-    'Real-time performance monitoring'
-  ];
-
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-white">
-      <Head>
-        <title>Ad Syntho - AI-Powered Campaign Dashboard</title>
-        <meta name="description" content="Unify your paid campaigns with AI-powered insights and actionable recommendations" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <ChartBarIcon className="h-8 w-8 text-primary-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">Ad Syntho</span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-600 hover:text-primary-600 transition-colors">Features</a>
-              <a href="/pricing" className="text-gray-600 hover:text-primary-600 transition-colors">Pricing</a>
-              <a href="#contact" className="text-gray-600 hover:text-primary-600 transition-colors">Contact</a>
-              <button onClick={handleGetStarted} className="btn-primary">Get Started</button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Unify Your
-              <span className="text-primary-600"> Paid Campaigns</span>
-              <br />
-              with AI-Powered Insights
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Connect all your ad accounts and get actionable recommendations to optimize performance, 
-              save time, and increase your return on ad spend.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="input-field max-w-md"
-              />
-              <button onClick={handleStartTrial} className="btn-primary flex items-center">
-                Start Free Trial
-                <ArrowRightIcon className="ml-2 h-5 w-5" />
-              </button>
-            </div>
-
-            <div className="flex items-center justify-center space-x-8 text-sm text-gray-500">
-              <div className="flex items-center">
-                <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
-                No credit card required
-              </div>
-              <div className="flex items-center">
-                <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
-                14-day free trial
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Everything you need to scale your campaigns
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From unified reporting to AI-powered optimization, we've got you covered.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card text-center hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <feature.icon className="h-8 w-8 text-primary-600" />
+    <div dangerouslySetInnerHTML={{
+      __html: `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Syntho - AI-Powered Ad Campaign Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.8); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .stats-counter {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-200" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                        A
+                    </div>
+                    <span class="ml-3 text-xl font-bold text-gray-900">Ad Syntho</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Why marketers choose Ad Syntho
-              </h2>
-              <div className="space-y-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-start">
-                    <CheckCircleIcon className="h-6 w-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-              <button onClick={handleGetStarted} className="btn-primary mt-8">Learn More</button>
-            </div>
-            <div className="relative">
-              <div className="card">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4">
-                    <StarIcon className="h-6 w-6 text-primary-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">AI Recommendation</h4>
-                    <p className="text-sm text-gray-500">Based on your campaign data</p>
-                  </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#features" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Features</a>
+                        <a href="#pricing" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Pricing</a>
+                        <a href="#testimonials" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Testimonials</a>
+                        <a href="#contact" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Contact</a>
+                    </div>
                 </div>
-                <p className="text-gray-700 mb-4">
-                  "Your Facebook campaign CTR is 15% below average. Consider testing new ad creatives 
-                  and adjusting your targeting to improve engagement."
+                
+                <div class="hidden md:block">
+                    <button class="btn-primary text-white px-6 py-2 rounded-lg font-medium" onclick="startFreeTrial()">
+                        Start Free Trial
+                    </button>
+                </div>
+                
+                <div class="md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div x-show="mobileMenuOpen" class="md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#features" class="block px-3 py-2 text-gray-600 hover:text-gray-900">Features</a>
+                <a href="#pricing" class="block px-3 py-2 text-gray-600 hover:text-gray-900">Pricing</a>
+                <a href="#testimonials" class="block px-3 py-2 text-gray-600 hover:text-gray-900">Testimonials</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-600 hover:text-gray-900">Contact</a>
+                <button class="btn-primary text-white px-6 py-2 rounded-lg font-medium w-full mt-4" onclick="startFreeTrial()">
+                    Start Free Trial
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 pb-16 bg-white relative overflow-hidden">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex justify-center mb-6"><div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"><i class="fas fa-brain mr-2"></i>AI-Powered Platform</div></div><div class="floating mb-8">
+                    <div class="w-24 h-24 bg-blue-100 rounded-3xl flex items-center justify-center mx-auto">
+                        <i class="fas fa-microchip text-4xl text-blue-600"></i>
+                    </div>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight md:leading-[1.15] text-gray-900 mb-6 slide-in">
+                    Unify Your
+                    <span class="block gradient-text bg-white">Paid Campaigns</span>
+                    with AI-Powered Insights
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto slide-in">
+                    Connect all your ad accounts and get actionable recommendations to optimize performance, 
+                    save time, and increase your return on ad spend by 25% on average.
                 </p>
-                <div className="flex justify-between text-sm text-gray-500">
-                  <span>Generated 2 hours ago</span>
-                  <span className="text-primary-600">View Details →</span>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 slide-in">
+                    <button class="btn-primary text-white px-8 py-4 rounded-xl font-semibold text-lg pulse-glow" onclick="startFreeTrial()">
+                        <i class="fas fa-play mr-2"></i>
+                        Start Free Trial
+                    </button>
+                    <button class="glass-effect border border-gray-300 bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all">
+                        <i class="fas fa-video mr-2"></i>
+                        Watch Demo
+                    </button>
                 </div>
-              </div>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-4xl mx-auto slide-in">
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold text-gray-900 stats-counter" x-data="{ count: 0 }" x-init="setTimeout(() => { count = 500 }, 1000)" x-text="count">0</div>
+                        <div class="text-gray-500">Active Users</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold text-gray-900 stats-counter" x-data="{ count: 0 }" x-init="setTimeout(() => { count = 2.5 }, 1000)" x-text="count + 'M'">0</div>
+                        <div class="text-gray-500">Ad Spend Managed</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold text-gray-900 stats-counter" x-data="{ count: 0 }" x-init="setTimeout(() => { count = 25 }, 1000)" x-text="count + '%'">0</div>
+                        <div class="text-gray-500">ROAS Improvement</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-4xl font-bold text-gray-900 stats-counter" x-data="{ count: 0 }" x-init="setTimeout(() => { count = 10 }, 1000)" x-text="count + '+'">0</div>
+                        <div class="text-gray-500">Hours Saved/Week</div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+        
+        <!-- Floating elements -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full floating" style="animation-delay: 0s;"></div>
+        <div class="absolute top-40 right-20 w-16 h-16 bg-white/10 rounded-full floating" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-20 left-20 w-12 h-12 bg-white/10 rounded-full floating" style="animation-delay: 2s;"></div>
+    </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-primary-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to transform your campaigns?
-          </h2>
-          <p className="text-xl text-primary-100 mb-8">
-            Join thousands of marketers who are already saving time and improving performance.
-          </p>
-          <button onClick={handleStartTrial} className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
-            Start Your Free Trial
-          </button>
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    Everything You Need to
+                    <span class="gradient-text">Optimize Your Ads</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our AI-powered platform provides comprehensive tools to manage, analyze, and optimize your advertising campaigns across all platforms.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-microchip text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Unified Dashboard</h3>
+                    <p class="text-gray-600 mb-4">
+                        View all your campaigns across Facebook, Google Ads, and TikTok in one comprehensive dashboard with real-time data synchronization.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Real-time KPI tracking</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Cross-platform comparison</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Custom reporting</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">AI-Powered Insights</h3>
+                    <p class="text-gray-600 mb-4">
+                        Get actionable recommendations powered by advanced machine learning algorithms that analyze your campaign performance patterns.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Performance optimization</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Budget allocation</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Audience insights</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-sync-alt text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Real-time Sync</h3>
+                    <p class="text-gray-600 mb-4">
+                        Automatically sync your campaign data from all connected platforms with secure OAuth 2.0 integration and real-time updates.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Secure API connections</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Live data updates</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Error monitoring</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </section>
+    </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center mb-4">
-                <ChartBarIcon className="h-8 w-8 text-primary-400" />
-                <span className="ml-2 text-xl font-bold">Ad Syntho</span>
-              </div>
-              <p className="text-gray-400">
-                AI-powered dashboard for unified campaign management and optimization.
-              </p>
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                Ready to Transform Your
+                <span class="block">Advertising Management?</span>
+            </h2>
+            <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                Join 500+ marketing teams who are already saving time and increasing their ROAS with Ad Syntho.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="btn-primary text-white px-8 py-4 rounded-xl font-semibold text-lg" onclick="startFreeTrial()">
+                    Start Your Free Trial
+                </button>
+                <button class="glass-effect border border-gray-300 bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all">
+                    Schedule a Demo
+                </button>
             </div>
-            <div>
-              <h4 className="font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Ad Syntho. All rights reserved.</p>
-          </div>
+            <p class="text-white/70 text-sm mt-4">14-day free trial • No credit card required • Cancel anytime</p>
         </div>
-      </footer>
-    </div>
-  );
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                            A
+                        </div>
+                        <span class="ml-3 text-xl font-bold">Ad Syntho</span>
+                    </div>
+                    <p class="text-gray-400">
+                        AI-powered platform for unified ad campaign management and optimization.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Integrations</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Status</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Ad Syntho. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function startFreeTrial() {
+            // Navigate to the dashboard page
+            window.location.href = "/dashboard";
+        }
+        
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+        
+        // Add smooth scrolling for navigation links
+        document.addEventListener("DOMContentLoaded", function() {
+            const navLinks = document.querySelectorAll("a[href^="#"]");
+            navLinks.forEach(link => {
+                link.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute("href").substring(1);
+                    scrollToSection(targetId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+      `
+    }} />
+  )
 }
