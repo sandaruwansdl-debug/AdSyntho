@@ -12,71 +12,17 @@ export default function HomePage() {
       padding: '2rem'
     }}>
       <div style={{ maxWidth: '800px' }}>
-        <div style={{ 
-          fontSize: '4rem', 
-          fontWeight: 'bold', 
-          marginBottom: '1rem',
-          background: 'linear-gradient(45deg, #ffffff, #e0f2fe)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
-        }}>
+        <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>
           Ad Syntho
-        </div>
-        
-        <h1 style={{ 
-          fontSize: '2.5rem', 
-          fontWeight: 'bold', 
-          marginBottom: '1rem',
-          lineHeight: '1.2'
-        }}>
-          AI-Powered Ad Campaign Management
         </h1>
         
-        <p style={{ 
-          fontSize: '1.25rem', 
-          marginBottom: '2rem',
-          opacity: '0.9',
-          lineHeight: '1.6'
-        }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+          AI-Powered Ad Campaign Management
+        </h2>
+        
+        <p style={{ fontSize: '1.25rem', marginBottom: '2rem', opacity: '0.9' }}>
           Unify your paid campaigns across all platforms with intelligent insights and optimization recommendations.
         </p>
-        
-        <div style={{ 
-          display: 'flex', 
-          gap: '1rem', 
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          marginBottom: '3rem'
-        }}>
-          <div style={{ 
-            background: 'rgba(255,255,255,0.1)', 
-            padding: '1rem 2rem', 
-            borderRadius: '0.5rem',
-            backdropFilter: 'blur(10px)'
-          }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>500+</div>
-            <div style={{ fontSize: '0.9rem', opacity: '0.8' }}>Active Users</div>
-          </div>
-          <div style={{ 
-            background: 'rgba(255,255,255,0.1)', 
-            padding: '1rem 2rem', 
-            borderRadius: '0.5rem',
-            backdropFilter: 'blur(10px)'
-          }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>$2.5M</div>
-            <div style={{ fontSize: '0.9rem', opacity: '0.8' }}>Ad Spend Managed</div>
-          </div>
-          <div style={{ 
-            background: 'rgba(255,255,255,0.1)', 
-            padding: '1rem 2rem', 
-            borderRadius: '0.5rem',
-            backdropFilter: 'blur(10px)'
-          }}>
-            <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>25%</div>
-            <div style={{ fontSize: '0.9rem', opacity: '0.8' }}>ROAS Improvement</div>
-          </div>
-        </div>
         
         <div style={{ 
           background: 'rgba(255,255,255,0.1)', 
@@ -85,9 +31,9 @@ export default function HomePage() {
           backdropFilter: 'blur(10px)',
           border: '1px solid rgba(255,255,255,0.2)'
         }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+          <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
             🎉 Platform Successfully Deployed!
-          </h2>
+          </h3>
           <p style={{ marginBottom: '1rem', opacity: '0.9' }}>
             Your Ad Syntho platform is now live and ready to serve customers.
           </p>
