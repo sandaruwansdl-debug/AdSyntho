@@ -92,17 +92,16 @@ async function handleSubscriptionCreated(subscription: any) {
     where: { stripeSubscriptionId: subscription.id },
     update: {
       status: subscription.status,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      stripePriceId: subscription.items.data[0].price.id,
     },
     create: {
       userId: 'unknown', // This should be retrieved from customer metadata
       stripeCustomerId: customerId,
       stripeSubscriptionId: subscription.id,
       status: subscription.status,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      planId: subscription.items.data[0].price.id,
+      stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      stripePriceId: subscription.items.data[0].price.id,
     },
   });
 
@@ -114,9 +113,8 @@ async function handleSubscriptionUpdated(subscription: any) {
     where: { stripeSubscriptionId: subscription.id },
     data: {
       status: subscription.status,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      planId: subscription.items.data[0].price.id,
+      stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      stripePriceId: subscription.items.data[0].price.id,
     },
   });
 

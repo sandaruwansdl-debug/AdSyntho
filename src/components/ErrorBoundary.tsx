@@ -40,7 +40,7 @@ export default class ErrorBoundary extends Component<Props, State> {
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     const errorBoundaryError = new ErrorBoundaryClass(
       error.message,
-      errorInfo.componentStack,
+      errorInfo.componentStack || '',
       errorInfo
     );
 

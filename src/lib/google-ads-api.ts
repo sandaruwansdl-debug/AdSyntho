@@ -79,18 +79,19 @@ export class GoogleAdsAPI {
       if (insights.length === 0) return null
 
       const insight = insights[0]
-      const spend = insight.metrics.cost_micros ? insight.metrics.cost_micros / 1000000 : 0
-      const revenue = insight.metrics.conversions_value || 0
+      const metrics = insight.metrics || {}
+      const spend = metrics.cost_micros ? metrics.cost_micros / 1000000 : 0
+      const revenue = metrics.conversions_value || 0
 
       return {
-        impressions: parseInt(insight.metrics.impressions) || 0,
-        clicks: parseInt(insight.metrics.clicks) || 0,
+        impressions: parseInt(metrics.impressions?.toString() || '0') || 0,
+        clicks: parseInt(metrics.clicks?.toString() || '0') || 0,
         spend: spend,
-        conversions: parseInt(insight.metrics.conversions) || 0,
+        conversions: parseInt(metrics.conversions?.toString() || '0') || 0,
         revenue: revenue,
-        ctr: parseFloat(insight.metrics.ctr) || 0,
-        cpc: parseFloat(insight.metrics.average_cpc) || 0,
-        cpa: parseFloat(insight.metrics.cost_per_conversion) || 0,
+        ctr: parseFloat(metrics.ctr?.toString() || '0') || 0,
+        cpc: parseFloat(metrics.average_cpc?.toString() || '0') || 0,
+        cpa: parseFloat(metrics.cost_per_conversion?.toString() || '0') || 0,
         roas: revenue / (spend || 1)
       }
     } catch (error) {
