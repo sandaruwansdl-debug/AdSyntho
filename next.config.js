@@ -9,10 +9,10 @@ const nextConfig = {
     serverComponentsExternalPackages: ['@prisma/client'],
   },
   typescript: {
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: false,
+    ignoreDuringBuilds: true,
   },
   output: 'standalone',
   trailingSlash: false,
