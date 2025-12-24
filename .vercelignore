@@ -1,0 +1,6 @@
+# Ignore files that aren't needed for deployment
+prisma/migrations
+*.log
+.env.local
+.env*.local
+

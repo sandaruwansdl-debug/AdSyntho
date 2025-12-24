@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate || true && next build",
+    "build": "(prisma generate || true) && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
-    "postinstall": "prisma generate || true"
+    "postinstall": "prisma generate || echo 'Prisma generate skipped'"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.0",
